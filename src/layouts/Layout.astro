@@ -1,0 +1,98 @@
+---
+/**
+ * Base Layout (CORRECTED)
+ * 
+ * This is the RIGHT way to structure your layout:
+ * 1. Use SEOHead component for all meta tags
+ * 2. Use Analytics component for tracking
+ * 3. Accept props for page-specific SEO
+ * 4. Keep layout clean and maintainable
+ * 
+ * DELETE YOUR OLD HARDCODED LAYOUT AND USE THIS.
+ */
+
+import Header from '../components/Header.astro';
+import Foot from '../components/Foot.astro';
+import SEOHead from '../components/SEOHead.astro';
+import Analytics from '../components/Analytics.astro';
+import { ClientRouter } from 'astro:transitions';
+
+import "../styles/global.css";
+
+export interface Props {
+  /** Page title (will be suffixed with site name) */
+  title?: string;
+  
+  /** Meta description */
+  description?: string;
+  
+  /** Canonical URL */
+  canonical?: string | URL;
+  
+  /** OG image URL */
+  ogImage?: string;
+  
+  /** OG type */
+  ogType?: 'website' | 'article' | 'product';
+  
+  /** Prevent indexing */
+  noindex?: boolean;
+  
+  /** Prevent following links */
+  nofollow?: boolean;
+  
+  /** Article metadata (if type is article) */
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+  };
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+  nofollow = false,
+  article,
+} = Astro.props;
+
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- View Transitions -->
+  <ClientRouter />
+  
+  <!-- SEO Meta Tags (now in a clean component) -->
+  <SEOHead 
+    title={title}
+    description={description}
+    canonical={canonical}
+    ogImage={ogImage}
+    ogType={ogType}
+    noindex={noindex}
+    nofollow={nofollow}
+    articlePublishedTime={article?.publishedTime}
+    articleModifiedTime={article?.modifiedTime}
+    articleAuthor={article?.author}
+  />
+  
+  <!-- Analytics (only in production) -->
+  <Analytics />
+</head>
+
+<body>
+
+  <Header />
+  <main class="container">
+    <slot />
+  </main>
+  <Foot />
+</body>
+</html>

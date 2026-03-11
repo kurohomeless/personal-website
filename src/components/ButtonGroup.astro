@@ -1,0 +1,159 @@
+---
+/**
+ * Neo-Brutalist Button Group Component
+ * 
+ * Groups related buttons together with proper spacing and alignment.
+ * Maintains neo-brutalism aesthetic while ensuring proper button organization.
+ * 
+ * @component
+ * @example
+ * <ButtonGroup>
+ *   <Button>First</Button>
+ *   <Button>Second</Button>
+ *   <Button>Third</Button>
+ * </ButtonGroup>
+ */
+
+export interface Props {
+  /** Alignment of buttons within the group */
+  align?: 'start' | 'center' | 'end' | 'stretch';
+  
+  /** Orientation of the button group */
+  orientation?: 'horizontal' | 'vertical' | 'grid';
+  
+  /** Gap between buttons */
+  gap?: 'small' | 'medium' | 'large';
+  
+  /** ARIA label for the button group */
+  ariaLabel?: string;
+  
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  align = 'start',
+  orientation = 'horizontal',
+  gap = 'medium',
+  ariaLabel,
+  class: className = '',
+} = Astro.props;
+
+// Validate props defensively
+const validAligns = ['start', 'center', 'end', 'stretch'];
+const validOrientations = ['horizontal', 'vertical', 'grid'];
+const validGaps = ['small', 'medium', 'large'];
+
+const finalAlign = validAligns.includes(align) ? align : 'start';
+const finalOrientation = validOrientations.includes(orientation) ? orientation : 'horizontal';
+const finalGap = validGaps.includes(gap) ? gap : 'medium';
+---
+
+<div
+  role="group"
+  aria-label={ariaLabel}
+  class:list={[
+    'neo-button-group',
+    `neo-button-group--${finalOrientation}`,
+    `neo-button-group--align-${finalAlign}`,
+    `neo-button-group--gap-${finalGap}`,
+    className
+  ]}
+>
+  <slot />
+</div>
+
+<style>
+  /* Design tokens */
+  :root {
+    --neo-gap-small: 0.5rem;
+    --neo-gap-medium: 1rem;
+    --neo-gap-large: 1.5rem;
+  }
+
+  /* Base button group styles */
+  .neo-button-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  /* Horizontal orientation */
+  .neo-button-group--horizontal {
+    flex-direction: row;
+  }
+
+  /* Vertical orientation */
+  .neo-button-group--vertical {
+    flex-direction: column;
+  }
+
+  /* Alignment: Start */
+  .neo-button-group--align-start {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  /* Alignment: Center */
+  .neo-button-group--align-center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Alignment: End */
+  .neo-button-group--align-end {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  /* Alignment: Stretch */
+  .neo-button-group--align-stretch {
+    align-items: stretch;
+  }
+
+  .neo-button-group--align-stretch.neo-button-group--vertical {
+    width: 100%;
+  }
+
+  .neo-button-group--align-stretch.neo-button-group--vertical :global(.neo-button),
+  .neo-button-group--align-stretch.neo-button-group--vertical :global(.neo-icon-button) {
+    width: 100%;
+  }
+
+  /* Gap: Small */
+  .neo-button-group--gap-small {
+    gap: var(--neo-gap-small);
+  }
+
+  /* Gap: Medium */
+  .neo-button-group--gap-medium {
+    gap: var(--neo-gap-medium);
+  }
+
+  /* Gap: Large */
+  .neo-button-group--gap-large {
+    gap: var(--neo-gap-large);
+  }
+  
+  /* Grid orientation - 2 columns */
+.neo-button-group--grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.neo-button-group--grid :global(.neo-button),
+.neo-button-group--grid :global(.neo-icon-button) {
+  width: 100%;
+}
+
+  /* Responsive: Stack on small screens for horizontal groups */
+  @media (max-width: 640px) {
+    .neo-button-group--horizontal {
+      flex-direction: column;
+    }
+    
+    .neo-button-group--horizontal :global(.neo-button),
+    .neo-button-group--horizontal :global(.neo-icon-button) {
+      width: 100%;
+    }
+  }
+</style>

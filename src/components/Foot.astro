@@ -1,0 +1,33 @@
+---
+// src/components/Footer.astro
+
+interface Props {
+  author?: string;
+}
+
+const { 
+  author = "kurohomeless"
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+<footer>
+    <div class="copyright-section">
+      <p>{author} &copy; {currentYear}</p>
+      <p class="sub-text">Built on phone with Astro, AI and spite.</p>
+    </div>
+</footer>
+
+<style>
+  .copyright-section {
+    font-size: var(--font-x);
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+
+  .sub-text {
+    font-size: 0.7rem;
+    padding-top: 8px;
+    opacity: 0.8;
+  }
+</style>

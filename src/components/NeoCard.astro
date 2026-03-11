@@ -1,0 +1,271 @@
+---
+/**
+ * Neo-Brutalist Card Component
+ * 
+ * Versatile card component for content organization.
+ * Perfect for features, testimonials, pricing, and content blocks.
+ * 
+ * @component
+ * @example
+ * <Card variant="primary">
+ *   <h3 slot="header">Card Title</h3>
+ *   <p>Card content goes here.</p>
+ *   <div slot="footer"><Button>Action</Button></div>
+ * </Card>
+ */
+
+export interface Props {
+  /** Visual style variant of the card */
+  variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+  
+  /** Size of the card */
+  size?: 'small' | 'medium' | 'large';
+  
+  /** Make card interactive (clickable) */
+  clickable?: boolean;
+  
+  /** Link URL if card should act as a link */
+  href?: string;
+  
+  /** Hover effect intensity */
+  hoverEffect?: 'none' | 'subtle' | 'strong';
+  
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  size = 'medium',
+  clickable = false,
+  href,
+  hoverEffect = 'subtle',
+  class: className = '',
+} = Astro.props;
+
+// Validate props
+const validVariants = ['default', 'primary', 'secondary', 'success', 'danger', 'warning'];
+const validSizes = ['small', 'medium', 'large'];
+const validHoverEffects = ['none', 'subtle', 'strong'];
+
+const finalVariant = validVariants.includes(variant) ? variant : 'default';
+const finalSize = validSizes.includes(size) ? size : 'medium';
+const finalHoverEffect = validHoverEffects.includes(hoverEffect) ? hoverEffect : 'subtle';
+
+// Determine if card should be clickable
+const isClickable = clickable || !!href;
+
+// Choose element type
+const Element = href ? 'a' : 'article';
+---
+
+<Element
+  href={href}
+  class:list={[
+    'neo-card',
+    `neo-card--${finalVariant}`,
+    `neo-card--${finalSize}`,
+    `neo-card--hover-${finalHoverEffect}`,
+    { 'neo-card--clickable': isClickable },
+    className
+  ]}
+>
+  {Astro.slots.has('header') && (
+    <header class="neo-card__header">
+      <slot name="header" />
+    </header>
+  )}
+  
+  <div class="neo-card__body">
+    <slot />
+  </div>
+  
+  {Astro.slots.has('footer') && (
+    <footer class="neo-card__footer">
+      <slot name="footer" />
+    </footer>
+  )}
+</Element>
+
+<style>
+:root{
+    
+}
+  /* Base card styles */
+  .neo-card {
+     --neo-black: var(--text-1);
+    --neo-white: var(--bg-1);
+    --neo-primary: var(--bg-accent-2);
+    --neo-secondary: var(--bg-accent-1);
+    --neo-success: #00ff88;
+    --neo-danger: #ff0055;
+    --neo-warning: #ffaa00;
+    --neo-gray: var(--bg-2);
+    
+    --neo-border-width: 4px;
+    --neo-shadow-offset: 0px;
+    --neo-transition-speed: 0.15s;
+    
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    
+    /* Visual */
+    background: var(--neo-white);
+    border: var(--neo-border-width) solid var(--neo-black);
+    box-shadow: var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
+    
+    /* Position */
+    position: relative;
+    
+    /* Reset link styles if card is a link */
+    text-decoration: none;
+    color: inherit;
+    
+    
+  }
+
+  /* Clickable cards */
+  .neo-card--clickable {
+    cursor: pointer;
+    transition: 
+      transform var(--neo-transition-speed) ease,
+      box-shadow var(--neo-transition-speed) ease;
+  }
+
+  /* Hover effects */
+  .neo-card--clickable.neo-card--hover-subtle:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 
+      calc(var(--neo-shadow-offset) - 2px) calc(var(--neo-shadow-offset) - 2px) 0 var(--neo-black);
+  }
+
+  .neo-card--clickable.neo-card--hover-strong:hover {
+    transform: translate(4px, 4px);
+    box-shadow: 
+      calc(var(--neo-shadow-offset) - 4px) calc(var(--neo-shadow-offset) - 4px) 0 var(--neo-black);
+  }
+
+  .neo-card--clickable:active {
+    transform: translate(var(--neo-shadow-offset), var(--neo-shadow-offset));
+    box-shadow: 0 0 0 var(--neo-black);
+  }
+
+  /* Focus state for keyboard navigation */
+  .neo-card--clickable:focus-visible {
+    outline: 3px dashed var(--neo-black);
+    outline-offset: 4px;
+  }
+
+  /* Header section */
+  .neo-card__header {
+    padding: 1.5rem;
+    border-bottom: var(--neo-border-width) solid var(--neo-black);
+    background: var(--card-accent-color, var(--neo-gray));
+  }
+
+  .neo-card__header :global(h1),
+  .neo-card__header :global(h2),
+  .neo-card__header :global(h3),
+  .neo-card__header :global(h4),
+  .neo-card__header :global(h5),
+  .neo-card__header :global(h6) {
+    font-family: var(--font-serif), monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    color: var(--neo-black);
+  }
+
+  /* Body section */
+  .neo-card__body {
+    padding: 1.5rem;
+    flex: 1;
+  }
+
+  .neo-card__body :global(p) {
+    font-family: var(--font-serif), monospace;
+    line-height: 1.6;
+    margin: 0 0 1rem 0; 
+  }
+
+  .neo-card__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Footer section */
+  .neo-card__footer {
+    padding: 1.5rem;
+    border-top: var(--neo-border-width) solid var(--neo-black);
+    background: var(--neo-gray);
+  }
+
+  /* Variant: Default */
+  .neo-card--default {
+    --card-accent-color: var(--neo-gray);
+  }
+
+  /* Variant: Primary */
+  .neo-card--primary {
+    --card-accent-color: var(--neo-primary);
+  }
+
+  /* Variant: Secondary */
+  .neo-card--secondary {
+    --card-accent-color: var(--neo-secondary);
+  }
+
+  /* Variant: Success */
+  .neo-card--success {
+    --card-accent-color: var(--neo-success);
+  }
+
+  /* Variant: Danger */
+  .neo-card--danger {
+    --card-accent-color: var(--neo-danger);
+  }
+
+  /* Variant: Warning */
+  .neo-card--warning {
+    --card-accent-color: var(--neo-warning);
+  }
+
+  /* Size: Small */
+  .neo-card--small .neo-card__header,
+  .neo-card--small .neo-card__body,
+  .neo-card--small .neo-card__footer {
+    padding: 1rem;
+  }
+
+  /* Size: Large */
+  .neo-card--large .neo-card__header,
+  .neo-card--large .neo-card__body,
+  .neo-card--large .neo-card__footer {
+    padding: 2rem;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .neo-card--clickable {
+      transition: none;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .neo-card__header,
+    .neo-card__body,
+    .neo-card__footer {
+      padding: 1rem;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .neo-card {
+      box-shadow: none;
+      break-inside: avoid;
+    }
+  }
+</style>

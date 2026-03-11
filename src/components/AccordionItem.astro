@@ -1,0 +1,271 @@
+---
+/**
+ * Neo-Brutalist Accordion Item Component
+ * 
+ * Individual item within an Accordion group.
+ * Uses native <details> and <summary> for accessibility.
+ * 
+ * @component
+ * @example
+ * <AccordionItem summary="Question" name="faq">
+ *   Answer content here
+ * </AccordionItem>
+ */
+
+export interface Props {
+  /** Summary text (the clickable header) - REQUIRED */
+  summary: string;
+  
+  /** Name for exclusive accordion (should match siblings) */
+  name?: string;
+  
+  /** Open by default */
+  open?: boolean;
+  
+  /** Variant color */
+  variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
+  
+  /** Additional CSS classes */
+  class?: string;
+}
+
+const {
+  summary,
+  name,
+  open = false,
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+
+// Validate required props
+if (!summary) {
+  throw new Error('AccordionItem requires summary prop');
+}
+
+// Validate variant
+const validVariants = ['default', 'primary', 'secondary', 'success', 'danger', 'warning'];
+const finalVariant = validVariants.includes(variant) ? variant : 'default';
+---
+
+<details 
+  class:list={[
+    'neo-accordion-item',
+    `neo-accordion-item--${finalVariant}`,
+    className
+  ]}
+  name={name}
+  open={open}
+>
+  <summary class="neo-accordion-item__summary">
+    <span class="neo-accordion-item__text">{summary}</span>
+    <span class="neo-accordion-item__icon" aria-hidden="true"></span>
+  </summary>
+  
+  <div class="neo-accordion-item__content">
+    <slot />
+  </div>
+</details>
+
+<style>
+
+  /* Details element - NO SHADOW (non-interactive container) */
+  .neo-accordion-item {
+    --neo-black: var(--text-1);
+    --neo-white: var(--bg-1);
+    --neo-gray: var(--bg-2);
+    --neo-primary: #00ff00;
+    --neo-secondary: #00ffff;
+    --neo-success: #00ff88;
+    --neo-danger: #ff0055;
+    --neo-warning: #ffaa00;
+    
+    --neo-border-width: 4px;
+    --neo-shadow-offset: 6px;
+    --neo-transition-speed: 0.15s;
+      
+    background: var(--neo-white);
+    border: var(--neo-border-width) solid var(--neo-black);
+    
+    box-shadow: 
+      var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
+  }
+  
+    /* Hover state */
+  .neo-accordion-item:hover{
+    transform: translate(3px, 3px);
+    box-shadow: 
+      calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0 var(--neo-black);
+  }
+
+  /* Active/pressed state */
+  .neo-accordion-item:active{
+    transform: translate(var(--neo-shadow-offset), var(--neo-shadow-offset));
+    box-shadow: 0 0 0 var(--neo-black);
+  }
+
+  /* Summary (the clickable part) */
+  .neo-accordion-item__summary {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    
+    /* Typography */
+    font-family: 'Literata', monospace;
+    font-size: 1rem;
+    color: var(--neo-black);
+    
+    /* Visual */
+    background: var(--item-bg-color, var(--neo-gray));
+    cursor: pointer;
+    
+    /* Remove default marker */
+    list-style: none;
+    
+    /* Interaction */
+    user-select: none;
+    transition: background var(--neo-transition-speed) ease;
+  }
+
+  /* Remove webkit marker */
+  .neo-accordion-item__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Hover state */
+  .neo-accordion-item__summary:hover {
+    background: var(--item-hover-color, #e0e0e0);
+  }
+
+  /* Focus state for keyboard navigation */
+  .neo-accordion-item__summary:focus-visible {
+    outline: 3px dashed var(--neo-black);
+    outline-offset: -3px;
+  }
+
+  /* Summary text */
+  .neo-accordion-item__text {
+    flex: 1;
+  }
+
+  /* Custom icon (arrow) */
+  .neo-accordion-item__icon {
+    /* Layout */
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    
+    /* Visual */
+    border: 3px solid var(--neo-black);
+    background: var(--neo-white);
+    position: relative;
+    
+    /* Transition */
+    transition: transform var(--neo-transition-speed) ease;
+  }
+
+.neo-accordion-item__icon {
+  position: relative; /* keep container relative */
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neo-accordion-item__icon::before {
+  content: '';
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 3px solid var(--neo-black);
+  border-bottom: 3px solid var(--neo-black);
+  transform: rotate(45deg);
+  transform-origin: center;
+  transition: transform var(--neo-transition-speed) ease;
+ 
+}
+
+details[open] .neo-accordion-item__icon::before {
+  transform: rotate(-135deg);
+}
+
+  /* Content area */
+  .neo-accordion-item__content {
+    padding: 1.5rem;
+    border-top: var(--neo-border-width) solid var(--neo-black);
+    background: var(--neo-white);
+  }
+
+  .neo-accordion-item__content :global(p) {
+    font-family: 'Literata', monospace;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+  }
+
+  .neo-accordion-item__content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Variant: Default */
+  .neo-accordion-item--default {
+    --item-bg-color: var(--neo-gray);
+    --item-hover-color: var(--bg-accent-1);
+  }
+
+  /* Variant: Primary */
+  .neo-accordion-item--primary {
+    --item-bg-color: var(--neo-primary);
+    --item-hover-color: #00dd00;
+  }
+
+  /* Variant: Secondary */
+  .neo-accordion-item--secondary {
+    --item-bg-color: var(--neo-secondary);
+    --item-hover-color: #00dddd;
+  }
+
+  /* Variant: Success */
+  .neo-accordion-item--success {
+    --item-bg-color: var(--neo-success);
+    --item-hover-color: #00dd77;
+  }
+
+  /* Variant: Danger */
+  .neo-accordion-item--danger {
+    --item-bg-color: var(--neo-danger);
+    --item-hover-color: #dd0044;
+  }
+
+  /* Variant: Warning */
+  .neo-accordion-item--warning {
+    --item-bg-color: var(--neo-warning);
+    --item-hover-color: #dd9900;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .neo-accordion-item__summary,
+    .neo-accordion-item__icon,
+    .neo-accordion-item__icon::before {
+      transition: none;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .neo-accordion-item {
+      break-inside: avoid;
+    }
+    
+    /* Show all content when printing */
+    details .neo-accordion-item__content {
+      display: block !important;
+    }
+  }
+</style>

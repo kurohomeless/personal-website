@@ -1,0 +1,32 @@
+---
+import updates from '../data/updates.json';
+
+const sortedUpdates = updates.sort((a, b) => 
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+---
+
+<h2>updates</h2>
+<div class="info-box">
+    {sortedUpdates.map((update, index) =>  (
+    <div class="update-item">
+      <div class="update-date">{update.date}</div>
+      <div>{update.content}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .update-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-muted);
+  }
+  .update-item:last-child {
+    border-bottom: none;
+  }
+  .update-date {
+    font-size: var(--font-xs);
+    margin-bottom: 4px;
+    font-family: var(--font-mono);
+  }
+</style>

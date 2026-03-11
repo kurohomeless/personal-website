@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="crypto donation wallets"
+  description="Accept crypto donations via Monero, Litecoin, Solana, and Bitcoin. Anonymous donations welcome."
+>
+    <nav style="margin-bottom: 32px;">
+        <a href="/" style="color: var(--text-link); font-weight: 600;">← back to home</a>
+    </nav>
+    
+    <h1>crypto wallets</h1>
+
+    <div class="alert">
+        <div class="alert-line">
+            <strong>PRIVACY:</strong> all crypto donations are anonymous. I don't see who sent what. Perfect for anons.
+        </div>
+        <div class="alert-line">
+            <strong>ANY AMOUNT:</strong> even $1 helps. Crypto fees are usually low, so no minimum.
+        </div>
+    </div>
+
+    <h2>available wallets</h2>
+
+    <div class="wallet-grid">
+        <div class="wallet">
+            <span class="wallet-label">MONERO (XMR)</span>
+            <div class="wallet-addr">87LMfkDhi4vLchGBL4jZU2fUFoDHq6afzZn3jc5ZkMrN5fbs1NZ8VbKEjXecHwu6rZHtXCQpjPZgdEScw9zd3tqmAoVP3Jc</div>
+            <p style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: 8px;">
+                ✓ best for anon  
+            </p>
+        </div>
+
+        <div class="wallet">
+            <span class="wallet-label">LITECOIN (LTC)</span>
+            <div class="wallet-addr">ltc1q37h3szghljh8f0fjcxkugj8u2lc4zluvzr2jd3</div>
+            <p style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: 8px;">
+              
+            </p>
+        </div>
+
+        <div class="wallet">
+            <span class="wallet-label">SOLANA (SOL)</span>
+            <div class="wallet-addr">6xzqAPx87JV5cyMmFkxJWEw247FfpCrWS8CSgVe8MoMW</div>
+            <p style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: 8px;">
+                ✓ Near-instant
+            </p>
+        </div>
+
+        <div class="wallet">
+            <span class="wallet-label">BITCOIN (BTC)</span>
+            <div class="wallet-addr">bc1qml7y5xkacspt38c9fh4p524nqpjkr90dl3vs7a</div>
+            <p style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: 8px;">
+                ⚠ Higher fees
+            </p>
+        </div>
+    </div>
+
+    <h2 id="whycrypto" >why crypto?</h2>
+    <div class="info-box">
+        <ul>
+            <li><strong>No middleman fees:</strong> PayPal takes 5-10% and I'm stingy.</li>
+            <li><strong>no content censorship:</strong> using kofi and paypal, i need to make sure my public work is nothing too crazy.</li>
+        </ul>
+    </div>
+
+    <h2>how to send</h2>
+    <div class="accordion">
+        <details class="accordion-item">
+            <summary class="accordion-summary">I've never used crypto before. Is it hard?</summary>
+            <div class="accordion-content">
+                <p style="margin-bottom: 12px;">Not really. Here's the simple version:</p>
+                <ol style="margin-left: 24px; color: var(--text-secondary);">
+                    <li>Download a crypto wallet app (like CoinLayout, Kraken, or Exodus)</li>
+                    <li>Buy some crypto with your card/bank</li>
+                    <li>Copy one of my wallet addresses above</li>
+                    <li>Send the amount you want</li>
+                </ol>
+                <p style="margin-top: 12px; color: var(--text-tertiary); font-size: var(--font-size-sm);">
+                    Do be careful since all coins is different.
+                </p>
+            </div>
+        </details>
+
+        <details class="accordion-item">
+            <summary class="accordion-summary">Which crypto should I use?</summary>
+            <div class="accordion-content">
+                <p><strong>For anonymity:</strong> Monero (XMR) - completely private transactions</p>
+                <p><strong>For speed & low fees:</strong> Litecoin (LTC) or Solana (SOL)</p>
+                <p><strong>For simplicity:</strong> Bitcoin (BTC) - easiest to buy, but higher fees</p>
+                <p style="margin-top: 12px; color: var(--text-tertiary); font-size: var(--font-size-sm);">
+                    Honestly, use whatever you already have. I can accept all of them.
+                </p>
+            </div>
+        </details>
+
+        <details class="accordion-item">
+            <summary class="accordion-summary">How do I know you received my donation?</summary>
+            <div class="accordion-content">
+                <p>Crypto transactions are public (except Monero). You can verify on blockchain explorers:</p>
+                <ul style="margin: 12px 0 12px 24px; color: var(--text-secondary);">
+                    <li>Bitcoin: blockchain.com</li>
+                    <li>Litecoin: blockchair.com</li>
+                    <li>Solana: solscan.io</li>
+                </ul>
+                <p style="color: var(--text-tertiary); font-size: var(--font-size-sm);">
+                    I also update the progress bar on the homepage when I receive donations.
+                </p>
+            </div>
+        </details>
+    </div>
+
+    <div class="info-box">
+        <p style="font-weight: 600; margin-bottom: 8px;">prefer traditional payment?</p>
+        <p style="color: var(--text-secondary);">
+            Ko-fi (PayPal/Card): <a href="https://ko-fi.com/homelessqueen">link here</a>
+        </p>
+        <p style="margin-top: 8px; color: var(--text-tertiary); font-size: var(--font-size-sm);">
+            Note: PayPal has higher fees and worse conversion rates for me, but it works if crypto isn't your thing.
+        </p>
+    </div>
+</Layout>

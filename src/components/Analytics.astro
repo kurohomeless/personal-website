@@ -1,0 +1,65 @@
+---
+/**
+ * Analytics Component
+ * 
+ * Handles Google Analytics and Umami tracking.
+ * Keep this SEPARATE from your layout for modularity.
+ * 
+ * @component
+ */
+
+export interface Props {
+  /** Google Analytics ID */
+  googleAnalyticsId?: string;
+  
+  /** Umami website ID */
+  umamiWebsiteId?: string;
+  
+  /** Umami script URL */
+  umamiScriptUrl?: string;
+}
+
+const {
+  googleAnalyticsId = 'G-8695BPSRGY',
+  umamiWebsiteId = '5fd83555-966a-4759-bd41-c23c6631b870',
+  umamiScriptUrl = 'https://cloud.umami.is/script.js',
+} = Astro.props;
+
+const isProduction = import.meta.env.PROD;
+---
+
+{isProduction && (
+  <>
+    <!-- Google Analytics -->
+    {googleAnalyticsId && (
+      <>
+        <script 
+          async 
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+        ></script>
+        <script is:inline define:vars={{ googleAnalyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', googleAnalyticsId);
+        </script>
+      </>
+    )}
+
+    <!-- Umami Analytics -->
+    {umamiWebsiteId && (
+      <script 
+        defer 
+        src={umamiScriptUrl}
+        data-website-id={umamiWebsiteId}
+      ></script>
+    )}
+  </>
+)}
+
+<!-- Development mode indicator -->
+{!isProduction && (
+  <script is:inline>
+    console.log('📊 Analytics disabled in development mode');
+  </script>
+)}

@@ -1,0 +1,17 @@
+{
+  "name": "website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astro-community/astro-embed-youtube": "^0.5.10",
+    "@astrojs/sitemap": "^3.7.0",
+    "@playform/compress": "^0.2.1",
+    "astro": "^6.0.0-beta.3"
+  }
+}

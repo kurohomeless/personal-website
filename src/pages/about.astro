@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LinkButton from '../components/LinkButton.astro';
+import ButtonGroup from '../components/ButtonGroup.astro';
+import Accordion from '../components/Accordion.astro';
+import AccordionItem from '../components/AccordionItem.astro';
+
+import LogoKofi from '../assets/kofi_symbol.svg';
+import LogoReddit from '../assets/logos--reddit-icon.svg';
+import LogoX from '../assets/logos--x.svg';
+
+
+import { SOCIAL_LINKS } from '../data/linkConfig.ts';
+const { 
+  linkKofi, 
+  linkTwitter, 
+  linkChub, 
+  linkJanitor, 
+  linkReddit
+ } = SOCIAL_LINKS;
+---
+
+<Layout>
+    <h2>Where to find kurohomeless?</h2>
+    <p>kurohomeless exist in following platform:</p>
+    <br>
+    <ButtonGroup orientation="grid">
+    <LinkButton variant="danger" href={linkKofi}>
+        <LogoKofi alt="Kofi Logo, a cup with heart" height="auto" width="26px" /> ko-fi
+    </LinkButton>
+        <LinkButton href={linkChub}><img src="/images/chub_logo.webp" width="26px" />
+    chub
+    </LinkButton>
+     <LinkButton href={linkJanitor}><img src="/images/janitorai-logo.webp" width="26px" />
+    janitor
+    </LinkButton>
+    </ButtonGroup>
+    <br>
+    <p>and the following social media:</p>
+    <br>
+    <ButtonGroup orientation="grid">
+    <LinkButton variant="secondary" href={linkTwitter}><LogoX alt="Symbol of X" height="auto" width="26px" /> 
+    Twitter
+    </LinkButton>
+        <LinkButton variant="warning" href={linkReddit}><LogoReddit alt="Reddit Logo" height="auto" width="26px" />
+    Reddit
+    </LinkButton>
+    </ButtonGroup>
+    <h2>what is kurohomeless?</h2>
+    <p>kurohomeless (or Kuro Homeless Queen 👑) is online persona for a human named [REDACTED], specifically for anon and porn purpose. Working as cashier 12+ hours a day, 6 days a week for $150 monthly. Kuro likes to help people and create something that make people laugh, not to mention Kuro optimis...Pfft</p>
+    <br>
+    <img src="/images/smile.webp" alt="kurohomeless pfp, an anime girl with awkward smile" width="160px">
+    <p style="color: var(--danger);">...yeah right. As if.</p>
+    <br>
+    <p>Truth to be told, Kuro is shitty person. Porn addict, Spiteful, Pessimistic. Every minutes he spent at work overflowing his heart with bitterness and resentment, mostly towards himself. Living life like this make him think "Am I real?",  "Am I even human?".</p>
+    <br>
+    <p>He doesn't even like releasing characters card publicly. Heck he doesn't even like roleplaying with AI. "Feels like wasting my already limited free time." He said. He only doing this because he hoping someone might give him money if people like his product.</p>
+    <br>
+    <p>
+        But Kuro doesn't want to waste this year again. Just increasing age without nothing ever change. If his product give you dopamine, pls do consider support him.</p>
+    <br>
+    <p>
+        Do note that:
+        <ul>
+            <li>kuro homeless is not homeless. Not in desperate state, Has a job and can pay his own bills (usually) </li>
+            <li>Currently, any financial support will be used only for emergency or buying productive assets.</li>
+            <li>You're not obligated to send yoir money to someone.</li>
+        </ul>
+    </p>
+    <br>
+    <p>You can support Kuro on ko-fi or support in other way:</p>
+    <br>
+    <ButtonGroup orientation="vertical">
+        <LinkButton variant="danger" href={linkKofi}>
+        <LogoKofi alt="Kofi Logo, a cup with heart" height="auto" width="26px" /> ko-fi
+    </LinkButton>
+            <LinkButton href="/support">
+       Other Ways to Support 
+    </LinkButton>
+    </ButtonGroup>
+    
+    <Accordion title="FAQ / INB4" name="faq">
+        <AccordionItem summary="What the actual plan ?" name="faq">
+          <p>Create ai roleplay character, learn how to create adult visual novel or rpg game, use my character to create YouTube content.</p>
+        </AccordionItem>
+        <AccordionItem summary="What with the feminine name?" name="faq">
+          <p>Kuro is a scum and about to pretend to be a girl to bait for money. He pivoted in last minute and deciced to do botmaking instead.</p>
+        </AccordionItem>
+        
+        <AccordionItem summary="Why not get better job?" name="faq">
+          Kuro is stupid and dont have any skill.
+        </AccordionItem>
+        
+        <AccordionItem summary="What do you use for this website?" name="faq">
+          <p>Astro SSG, AI and phone</p>
+        </AccordionItem>
+        
+        <AccordionItem summary="Kill yourself" name="faq">
+          <p>no u. im not suicidal</p>
+        </AccordionItem>
+        
+        <AccordionItem summary="Is anything ever going to change" name="faq">
+          <p>Unlikely. He cant focus on this sooner or later he going to get burn out. But i dont know what else I can do? Everyday just wake up, work and sleep. I dont even have friend. All my coworkers is bitter people who talk shit behind my boss but lick his ass in fromnt of him. What else I can do? Is this my role in life? Is this my future for th3 next decade? Continue working as cashier filled with bitterness and resentment until I got wrinkle and die? Continue be burden to everyone else?  Is learning coding even useful? I rely on AI and only have myphone. even real developers have hard time finding a job. How arrogant of me to think I can do anything. I dont want to continue anymore. </p>
+        </AccordionItem>
+        i raye
+      </Accordion>
+    
+    
+</Layout>

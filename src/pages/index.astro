@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import NavBar from '../components/NavBar.astro';
+import cardsData from '../data/cards.json';
+import LinkButton from '../components/LinkButton.astro';
+import ButtonGroup from '../components/ButtonGroup.astro';
+
+import Accordion from '../components/Accordion.astro';
+import AccordionItem from '../components/AccordionItem.astro';
+
+import Update from '../components/Update.astro';
+
+import LogoKofi from '../assets/kofi_symbol.svg';
+
+import { SOCIAL_LINKS } from '../data/linkConfig.ts';
+const { 
+  linkKofi, 
+  linkTwitter, 
+  linkChub, 
+  linkJanitor, 
+  linkReddit
+ } = SOCIAL_LINKS;
+
+const featuredCards = cardsData.filter(card => card.featured).slice(0, 2);
+const raised = 20; // Update this manually
+const goal = 10;
+const percentage = (raised / goal) * 100;
+---
+
+<Layout>
+    <h1>"Brainless Stupid Dog."</h1>
+    <p>That's what my boss calls me. So I create character cards after my shift ends.</p>
+<br>
+
+<img src="/images/schedule.webp" 
+     alt="work schedule — 12-hour shifts, 2 unpaid work in one of the shift, six days a week" 
+     width="500">
+
+<p>This ^ Basically my life for 6 days. 72+ hours a week (The paid one). For ~150$ a month.</p>
+<br>
+
+<p>My current plan: learn skills from AI and find a way to make money.</p>
+<p>End goal? Quit my job and find a better job. </p>
+<br>
+<img src="/images/quit.webp" 
+     alt="An anime-style illustration of a woman with long brown hair laughing with her arms spread wide and head tilted back. She wears a blue kimono with a white floral pattern and a white apron. Surrounding her are numerous Japanese 10,000-yen banknotes falling through the air, many of which are on fire with visible flames and smoke against a dark, ember-filled background." 
+     width="500">
+     <br>
+     
+     <p>This is dumb but to be blunt I was hoping if the character give you dopamine, you might consider sending money my way (^^;</p>
+     <br>
+
+<img src="/images/smile.webp" alt="anime girl with awkward smile" style="max-width:150px; width:100%; height:auto;">
+<br>
+<p>I'm kurohomeless, Professional Cashier. If you like my character, you can support me on Kofi for some investor only benefit and help me fund my escape faster. </p>
+<br>
+    <ButtonGroup orientation="vertical">
+        <LinkButton variant="danger" href={linkKofi}>
+        <LogoKofi alt="Kofi Logo, a cup with heart" height="auto" width="26px" /> ko-fi
+    </LinkButton>
+            <LinkButton href="/support">
+       Other Ways to Support 
+    </LinkButton>
+    </ButtonGroup>
+    </div>
+
+
+    
+
+
+    <h2>free character cards (download now, pay later if you want)</h2>
+    <p>commission open if you want something specific and have disposable income. <a href="/support/#commission">Click here for more info</a></p>
+    
+    <div class="cards">
+        {featuredCards.map(card => <Card card={card} />)}
+    </div>
+
+    <ButtonGroup align="center">
+      <LinkButton href="/cards" size="" variant="secondary">
+          → SEE ALL CARDS
+      </LinkButton>
+    </ButtonGroup>
+        
+    
+       
+         
+
+    
+    <Accordion title="INB4" name="inb4">
+        <AccordionItem summary="for card commission, what is your content limit? " name="inb4">
+            I'll be straight with you, I'm desperate and won't judge you for your fictional fantasy
+        </AccordionItem>
+        
+        <AccordionItem summary="Where else to find you? " name="inb4">
+          You can check <a href="/about">here</a> to see my other social media 
+        </AccordionItem>
+        
+        <AccordionItem summary="I'm broke too" name="inb4">
+          Don't worry. Just enjoy the card. If you like it, pls do share the card
+        </AccordionItem>
+    </Accordion>   
+    
+    <Update />
+
+    <div class="info-box">
+        <p style="font-weight: 600; margin-bottom: 12px;">can't or won't donate? no problem. other ways to help:</p>
+        <ul>
+            <li>share this on reddit/discord/twitter/4chan/wherever ai lover hang out</li>
+            <li>test the cards and roast me in the comments (harsh feedback > fake niceness)</li>
+            <li>suggest character ideas (if i like it i might make it)</li>
+            <li>just say "good luck retard" somewhere or send me aninal pic or lewd pic. morale boost costs $0.</li>
+        </ul>
+    </div>
+
+   
+    <div class="info-box">
+        <p style="font-weight: 600; margin-bottom: 8px;">prefer crypto?</p>
+        <p style="color: var(--text-secondary); font-size: var(--font-size-sm);">
+            I have Monero (XMR), Litecoin (LTC), Solana (SOL), and Bitcoin (BTC) addresses. 
+            <a href="/support/#crypto">See all wallets here →</a>
+        </p>
+    </div>
+
+</Layout>

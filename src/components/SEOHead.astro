@@ -1,0 +1,242 @@
+---
+/**
+ * SEO Head Component v2 - kurohomeless Optimized
+ * 
+ * Features:
+ * - JSON-LD structured data injection (Person schema for brand authority)
+ * - OG Image dimensions for proper social cropping
+ * - Theme color support for mobile browsers
+ * - Side-hustle positioning (not survival mode)
+ * - Character card specific meta (CreativeWork schema ready)
+ */
+
+export interface StructuredData {
+  '@context': string;
+  '@type': string;
+  [key: string]: any;
+}
+
+export interface Props {
+  /** Page title (suffixes with site name unless override) */
+  title?: string;
+  
+  /** Meta description - keep under 160 chars */
+  description?: string;
+  
+  /** Canonical URL (defaults to current page) */
+  canonical?: string | URL;
+  
+  /** Open Graph image (absolute URL best, but root-relative works) */
+  ogImage?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  ogImageAlt?: string;
+  
+  /** Content type */
+  ogType?: 'website' | 'article' | 'product' | 'profile';
+  
+  /** Article specific */
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  articleAuthor?: string;
+  articleSection?: string;
+  articleTags?: string[];
+  
+  /** Twitter options */
+  twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player';
+  twitterCreator?: string;
+  twitterSite?: string;
+  
+  /** Crawler control */
+  noindex?: boolean;
+  nofollow?: boolean;
+  noarchive?: boolean;
+  nosnippet?: boolean;
+  
+  /** SEO Enhancements */
+  keywords?: string[];
+  themeColor?: string;
+  colorScheme?: 'light dark' | 'dark' | 'light';
+  
+  /** Structured Data (JSON-LD) - Pass schema.org objects here */
+  structuredData?: StructuredData | StructuredData[];
+  
+  /** Verification tags */
+  googleVerification?: string;
+  bingVerification?: string;
+  
+  /** Preconnect domains (optional performance boost) */
+  preconnectDomains?: string[];
+}
+
+// CONFIGURATION - Move these to .env or site.config.ts
+const SITE_NAME = 'kurohomeless';
+const SITE_TAGLINE = 'AI botmaker';
+const DEFAULT_DESCRIPTION = "SillyTavern-compatible character JSONs made during 15-minute retail breaks. Authentic mobile-generated bot profiles. Free base cards, custom variants available.";
+const SITE_URL = 'https://kurohomeless.pages.dev'; // No trailing slash or space!
+const DEFAULT_OG_IMAGE = '/images/smile.webp';
+const DEFAULT_OG_WIDTH = 1200;
+const DEFAULT_OG_HEIGHT = 630;
+const TWITTER_HANDLE = '@kurohomeless';
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  canonical,
+  ogImage = DEFAULT_OG_IMAGE,
+  ogImageWidth = DEFAULT_OG_WIDTH,
+  ogImageHeight = DEFAULT_OG_HEIGHT,
+  ogImageAlt = title ?? SITE_NAME,
+  ogType = 'website',
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor,
+  articleSection,
+  articleTags = [],
+  twitterCard = 'summary_large_image',
+  twitterCreator = TWITTER_HANDLE,
+  twitterSite = TWITTER_HANDLE,
+  noindex = false,
+  nofollow = false,
+  noarchive = false,
+  nosnippet = false,
+  keywords = [],
+  themeColor = '#0a0a0a', // Dark void color for your aesthetic
+  colorScheme = 'dark',
+  structuredData,
+  googleVerification,
+  bingVerification,
+  preconnectDomains = [],
+} = Astro.props;
+
+// Build title: "Character Name | kurohomeless" (avoids repetition if title already includes site name)
+let fullTitle: string;
+if (!title) {
+  fullTitle = `${SITE_NAME} — ${SITE_TAGLINE}`;
+} else if (title.includes(SITE_NAME)) {
+  fullTitle = title; // Prevent "kurohomeless | kurohomeless..."
+} else {
+  fullTitle = `${title} | ${SITE_NAME}`;
+}
+
+// Canonical URL handling
+const canonicalURL = canonical 
+  ? new URL(canonical, SITE_URL).toString()
+  : new URL(Astro.url.pathname, SITE_URL).toString();
+
+// OG Image absolute URL (required for social platforms)
+const ogImageURL = new URL(ogImage, SITE_URL).toString();
+
+// Robots meta directive construction
+const robotsDirectives: string[] = [];
+if (noindex) robotsDirectives.push('noindex');
+else robotsDirectives.push('index');
+if (nofollow) robotsDirectives.push('nofollow');
+else robotsDirectives.push('follow');
+if (noarchive) robotsDirectives.push('noarchive');
+if (nosnippet) robotsDirectives.push('nosnippet');
+
+const robotsContent = robotsDirectives.join(', ');
+
+// Prepare JSON-LD
+const jsonLdScript = structuredData 
+  ? JSON.stringify(structuredData, null, 2)
+  : null;
+
+// Default Person Schema for homepage (automatically injected if root path and no custom schema)
+const defaultPersonSchema: StructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'kurohomeless',
+  alternateName: 'The Cashier',
+  description: 'AI character card creator working from mobile devices during retail shifts',
+  url: SITE_URL,
+  jobTitle: 'AI Character Creator',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Independent'
+  },
+  sameAs: [
+    // Add your Chub, Twitter, Ko-fi here
+    // 'https://chub.ai/users/kurohomeless',
+    // 'https://twitter.com/kurohomeless',
+  ]
+};
+
+const finalStructuredData = jsonLdScript 
+  ? jsonLdScript 
+  : (Astro.url.pathname === '/' ? JSON.stringify(defaultPersonSchema) : null);
+---
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle}>
+<meta name="description" content={description}>
+<meta name="color-scheme" content={colorScheme}>
+<meta name="theme-color" content={themeColor}>
+
+<!-- Robots -->
+<meta name="robots" content={robotsContent}>
+
+<!-- Canonical -->
+<link rel="canonical" href={canonicalURL}>
+
+<!-- Alternate (helpful if you add /ja/ or /es/ versions later) -->
+<link rel="alternate" href={canonicalURL} hreflang="x-default">
+
+<!-- Verification -->
+{googleVerification && <meta name="google-site-verification" content={googleVerification} />}
+{bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType}>
+<meta property="og:url" content={canonicalURL}>
+<meta property="og:title" content={fullTitle}>
+<meta property="og:description" content={description}>
+<meta property="og:site_name" content={SITE_NAME}>
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content={ogImageURL}>
+<meta property="og:image:width" content={String(ogImageWidth)}>
+<meta property="og:image:height" content={String(ogImageHeight)}>
+<meta property="og:image:alt" content={ogImageAlt}>
+
+<!-- Article Specific -->
+{ogType === 'article' && (
+  <>
+    {articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+    {articleModifiedTime && <meta property="article:modified_time" content={articleModifiedTime} />}
+    {articleAuthor && <meta property="article:author" content={articleAuthor} />}
+    {articleSection && <meta property="article:section" content={articleSection} />}
+    {articleTags.map(tag => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+
+<!-- Twitter -->
+<meta name="twitter:card" content={twitterCard}>
+<meta name="twitter:url" content={canonicalURL}>
+<meta name="twitter:title" content={fullTitle}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImageURL}>
+{twitterCreator && <meta name="twitter:creator" content={twitterCreator} />}
+{twitterSite && <meta name="twitter:site" content={twitterSite} />}
+
+<!-- Keywords (deprecated by Google, but Bing/DuckDuckGo still glance at them) -->
+{keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')}>}
+
+<!-- Preconnect -->
+<link rel="preconnect" href={new URL(SITE_URL).origin}>
+{preconnectDomains.map(domain => (
+  <link rel="preconnect" href={domain} crossorigin>
+))}
+
+<!-- JSON-LD Structured Data -->
+{finalStructuredData && (
+  <script type="application/ld+json" set:html={finalStructuredData} />
+)}
+
+<!-- Font preloading (only if you actually use these fonts) -->
+<link rel="preload" href="/fonts/AtkinsonHyperlegibleNext-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/Literata-Medium.woff2" as="font" type="font/woff2" crossorigin>
