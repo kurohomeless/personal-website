@@ -8,195 +8,199 @@ interface Props {
   title?: string;
 }
 
-const {
-  title = "[ SYSTEM MENU ]",
-} = Astro.props;
+const { title = '[ SYSTEM MENU ]' } = Astro.props;
 
-const pathname = Astro.url.pathname.replace(/\/$/, "");
+const pathname = Astro.url.pathname.replace(/\/$/, '');
 
 const links = [
-  { label: "Home", href: "/" },
-  { label: "Cards", href: "/cards" },
-  { label: "Support Kuro", href: "/support" },
-  { label: "About Kuro", href: "/about" },
+  { label: 'Home', href: '/' },
+  { label: 'Cards', href: '/cards' },
+  { label: 'Support Kuro', href: '/support' },
+  { label: 'About Kuro', href: '/about' },
 ];
 
 const isActive = (href: string) => {
-  const normalized = href === "/" ? "" : href.replace(/\/$/, "");
+  const normalized = href === '/' ? '' : href.replace(/\/$/, '');
   return pathname === normalized;
 };
 ---
 
 <header class="system-menu">
-  <nav
-    class="menu-box"
-    aria-labelledby="system-menu-title"
-  >
+  <nav class="menu-box" aria-labelledby="system-menu-title">
     <div class="menu-header">
       <span id="system-menu-title">{title}</span>
     </div>
 
     <ul class="menu-grid" role="list">
-      {links.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class={`grid-item ${isActive(link.href) ? "active" : ""}`}
-            aria-current={isActive(link.href) ? "page" : undefined}
-            target={link.external ? "_blank" : undefined}
-            rel={link.external ? "noopener noreferrer" : undefined}
-          >
-            <span class="label">{link.label}</span>
-            {link.external && (
-              <span class="ext-icon" aria-hidden="true">↗</span>
-            )}
-          </a>
-        </li>
-      ))}
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class={`grid-item ${isActive(link.href) ? 'active' : ''}`}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+            >
+              <span class="label">{link.label}</span>
+              {link.external && (
+                <span class="ext-icon" aria-hidden="true">
+                  ↗
+                </span>
+              )}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </header>
 
 <style>
-:root {
-  --status-text: var(--accent-1);
-  --status-bg: var(--bg-accent-1);
-}
-
-.system-menu {
-  padding: 1px;
-  text-align: center;
-  background: var(--bg-1);
-  color: var(--text-1);
-  font-family: var(--font-mono);
-  margin-bottom: var(--space-md);
-}
-
-.menu-box {
-  border: var(--border-size) solid var(--text-1);
-  background: var(--bg-1);
-  position: relative;
-}
-
-.menu-header {
-  border-bottom: var(--border-size) solid var(--text-1);
-  padding: var(--space-md);
-  background: var(--status-bg);
-}
-
-.menu-header span {
-  margin: 0;
-  font-size: var(--font-xl);
-  letter-spacing: 0.12em;
-  color: var(--status-text);
-  /* ADDED: Bolder typography */
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.menu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.menu-grid li {
-  margin: 0;
-}
-
-.grid-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-md);
-  border-right: var(--border-size) solid var(--text-1);
-  border-bottom: var(--border-size) solid var(--text-1);
-  text-decoration: none;
-  color: var(--text-1);
-  font-size: var(--font-sm);
-  position: relative;
-  /* ADDED: Smooth transitions */
-  transition: all 0.15s ease;
-  font-weight: 600; /* ADDED: Bolder text */
-  letter-spacing: 0.05em; /* ADDED: Tracking */
-}
-
-.menu-grid li:nth-child(2n) .grid-item {
-  border-right: none;
-}
-
-.menu-grid li:nth-last-child(-n + 2) .grid-item {
-  border-bottom: none;
-}
-
-/* IMPROVED: Hover with subtle movement */
-.grid-item:hover {
-  background: var(--text-1);
-  color: var(--bg-1);
-  transform: translate(2px, 2px); /* ADDED: Slight shift */
-}
-
-/* Focus = explicit edge */
-.grid-item:focus-visible {
-  outline: 3px dashed var(--text-1); /* CHANGED: Dashed for more brutalist feel */
-  outline-offset: -3px;
-}
-
-/* IMPROVED: Active page with more drama */
-.grid-item.active {
-  background: var(--status-bg);
-  color: var(--status-text);
-  font-weight: 700; /* CHANGED: Bolder */
-  pointer-events: none;
-  /* ADDED: Inner shadow effect */
-  box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-.grid-item.active::before {
-  content: "●";
-  position: absolute;
-  left: var(--space-md);
-  font-size: 0.8rem; /* CHANGED: Bigger dot */
-  animation: pulse 2s infinite; /* ADDED: Subtle pulse */
-}
-
-/* ADDED: Pulse animation for active indicator */
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-/* External icon is decorative */
-.ext-icon {
-  margin-left: 0.4rem;
-  font-size: 0.7em;
-}
-
-/* ADDED: Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .grid-item {
-    transition: none;
+  :root {
+    --status-text: var(--accent-1);
+    --status-bg: var(--bg-accent-1);
   }
-  
-  .grid-item:hover {
-    transform: none;
-  }
-  
-  .grid-item.active::before {
-    animation: none;
-  }
-}
 
-/* ADDED: High contrast mode support */
-@media (prefers-contrast: high) {
+  .system-menu {
+    padding: 1px;
+    text-align: center;
+    background: var(--bg-1);
+    color: var(--text-1);
+    font-family: var(--font-mono);
+    margin-bottom: var(--space-md);
+  }
+
   .menu-box {
-    border-width: 5px;
+    border: var(--border-size) solid var(--text-1);
+    background: var(--bg-1);
+    position: relative;
   }
-  
+
+  .menu-header {
+    border-bottom: var(--border-size) solid var(--text-1);
+    padding: var(--space-md);
+    background: var(--status-bg);
+  }
+
+  .menu-header span {
+    margin: 0;
+    font-size: var(--font-xl);
+    letter-spacing: 0.12em;
+    color: var(--status-text);
+    /* ADDED: Bolder typography */
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-grid li {
+    margin: 0;
+  }
+
   .grid-item {
-    border-width: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    border-right: var(--border-size) solid var(--text-1);
+    border-bottom: var(--border-size) solid var(--text-1);
+    text-decoration: none;
+    color: var(--text-1);
+    font-size: var(--font-sm);
+    position: relative;
+    /* ADDED: Smooth transitions */
+    transition: all 0.15s ease;
+    font-weight: 600; /* ADDED: Bolder text */
+    letter-spacing: 0.05em; /* ADDED: Tracking */
   }
-}
+
+  .menu-grid li:nth-child(2n) .grid-item {
+    border-right: none;
+  }
+
+  .menu-grid li:nth-last-child(-n + 2) .grid-item {
+    border-bottom: none;
+  }
+
+  /* IMPROVED: Hover with subtle movement */
+  .grid-item:hover {
+    background: var(--text-1);
+    color: var(--bg-1);
+    transform: translate(2px, 2px); /* ADDED: Slight shift */
+  }
+
+  /* Focus = explicit edge */
+  .grid-item:focus-visible {
+    outline: 3px dashed var(--text-1); /* CHANGED: Dashed for more brutalist feel */
+    outline-offset: -3px;
+  }
+
+  /* IMPROVED: Active page with more drama */
+  .grid-item.active {
+    background: var(--status-bg);
+    color: var(--status-text);
+    font-weight: 700; /* CHANGED: Bolder */
+    pointer-events: none;
+    /* ADDED: Inner shadow effect */
+    box-shadow: inset 4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .grid-item.active::before {
+    content: '●';
+    position: absolute;
+    left: var(--space-md);
+    font-size: 0.8rem; /* CHANGED: Bigger dot */
+    animation: pulse 2s infinite; /* ADDED: Subtle pulse */
+  }
+
+  /* ADDED: Pulse animation for active indicator */
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* External icon is decorative */
+  .ext-icon {
+    margin-left: 0.4rem;
+    font-size: 0.7em;
+  }
+
+  /* ADDED: Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .grid-item {
+      transition: none;
+    }
+
+    .grid-item:hover {
+      transform: none;
+    }
+
+    .grid-item.active::before {
+      animation: none;
+    }
+  }
+
+  /* ADDED: High contrast mode support */
+  @media (prefers-contrast: high) {
+    .menu-box {
+      border-width: 5px;
+    }
+
+    .grid-item {
+      border-width: 3px;
+    }
+  }
 </style>

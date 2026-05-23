@@ -4,21 +4,21 @@ interface Props {
   category?: string;
   showDivider?: boolean;
 }
-const { date, category = "ニュース", showDivider = true } = Astro.props;
+const { date, category = 'ニュース', showDivider = true } = Astro.props;
 ---
 
 <div class="group cursor-pointer py-4">
   <div class="text-[#cbd5e0] text-sm leading-relaxed mb-2">
     <slot />
   </div>
-  
-  {date && (
-    <div class="text-[#718096] text-xs">
-      【 {category} 】 {date}
-    </div>
-  )}
 
-  {showDivider && (
-    <div class="mt-4 w-full h-[0.5px] bg-[#2d3748] shadow-sm"></div>
-  )}
+  {
+    date && (
+      <div class="text-[#718096] text-xs">
+        【 {category} 】 {date}
+      </div>
+    )
+  }
+
+  {showDivider && <div class="mt-4 w-full h-[0.5px] bg-[#2d3748] shadow-sm" />}
 </div>

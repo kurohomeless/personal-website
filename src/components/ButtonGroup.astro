@@ -1,10 +1,10 @@
 ---
 /**
  * Neo-Brutalist Button Group Component
- * 
+ *
  * Groups related buttons together with proper spacing and alignment.
  * Maintains neo-brutalism aesthetic while ensuring proper button organization.
- * 
+ *
  * @component
  * @example
  * <ButtonGroup>
@@ -17,16 +17,16 @@
 export interface Props {
   /** Alignment of buttons within the group */
   align?: 'start' | 'center' | 'end' | 'stretch';
-  
+
   /** Orientation of the button group */
   orientation?: 'horizontal' | 'vertical' | 'grid';
-  
+
   /** Gap between buttons */
   gap?: 'small' | 'medium' | 'large';
-  
+
   /** ARIA label for the button group */
   ariaLabel?: string;
-  
+
   /** Additional CSS classes */
   class?: string;
 }
@@ -57,7 +57,7 @@ const finalGap = validGaps.includes(gap) ? gap : 'medium';
     `neo-button-group--${finalOrientation}`,
     `neo-button-group--align-${finalAlign}`,
     `neo-button-group--gap-${finalGap}`,
-    className
+    className,
   ]}
 >
   <slot />
@@ -133,24 +133,24 @@ const finalGap = validGaps.includes(gap) ? gap : 'medium';
   .neo-button-group--gap-large {
     gap: var(--neo-gap-large);
   }
-  
-  /* Grid orientation - 2 columns */
-.neo-button-group--grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
 
-.neo-button-group--grid :global(.neo-button),
-.neo-button-group--grid :global(.neo-icon-button) {
-  width: 100%;
-}
+  /* Grid orientation - 2 columns */
+  .neo-button-group--grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .neo-button-group--grid :global(.neo-button),
+  .neo-button-group--grid :global(.neo-icon-button) {
+    width: 100%;
+  }
 
   /* Responsive: Stack on small screens for horizontal groups */
   @media (max-width: 640px) {
     .neo-button-group--horizontal {
       flex-direction: column;
     }
-    
+
     .neo-button-group--horizontal :global(.neo-button),
     .neo-button-group--horizontal :global(.neo-icon-button) {
       width: 100%;

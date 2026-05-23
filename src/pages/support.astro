@@ -8,14 +8,8 @@ import NeoCard from '../components/NeoCard.astro';
 import LogoKofi from '../assets/kofi_symbol.svg';
 
 import { SOCIAL_LINKS } from '../data/linkConfig.ts';
-const { 
-  linkKofi, 
-  linkTwitter, 
-  linkChub, 
-  linkJanitor, 
-  linkReddit
- } = SOCIAL_LINKS;
- 
+const { linkKofi, linkTwitter, linkChub, linkJanitor, linkReddit } = SOCIAL_LINKS;
+
 const {
   walletXMR = '87LMfkDhi4vLchGBL4jZU2fUFoDHq6afzZn3jc5ZkMrN5fbs1NZ8VbKEjXecHwu6rZHtXCQpjPZgdEScw9zd3tqmAoVP3Jc',
   walletLTC = 'ltc1q37h3szghljh8f0fjcxkugj8u2lc4zluvzr2jd3',
@@ -25,86 +19,92 @@ const {
 ---
 
 <style>
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-    
-    .wallet-adr {
-        word-break: break-all;
-    }
-    
-    code {
-        font-family: var(--font-mono);
-        font-weight: 500;
-    }
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .wallet-adr {
+    word-break: break-all;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-weight: 500;
+  }
 </style>
-<Layout 
-  title="Support Kuro!"
-  description="Accept financial and emotional support."
->
+<Layout title="Support Kuro!" description="Accept financial and emotional support.">
+  <h1>Support Kuro</h1>
+  <p>First, thank you for considering supporting me! ^^</p>
+  <br />
 
-    
-    <h1>Support Kuro</h1>
-<p>First, thank you for considering supporting me! ^^</p>
-<br>
+  <p>You can support me in 4 ways:</p>
 
-<p>You can support me in 4 ways:</p>
-
-<ol>
+  <ol>
     <li>
-        <strong>Financial support!</strong><br>
-        Fund my escape and be investor in kurohomeless "career"
+      <strong>Financial support!</strong><br />
+      Fund my escape and be investor in kurohomeless "career"
     </li>
     <li>
-        <strong>Critic me! Harshly!</strong><br>
-        I don't want to waste your time with trash bots. If something is trash and feel free to suggest how to fix it
+      <strong>Critic me! Harshly!</strong><br />
+      I don't want to waste your time with trash bots. If something is trash and feel free to suggest
+      how to fix it
     </li>
     <li>
-        <strong>Emotional Support!</strong><br>
-        Just say "good luck". If you have pets, send me cute pics. Im a perv, so lewd pic can motivate me as well
+      <strong>Emotional Support!</strong><br />
+      Just say "good luck". If you have pets, send me cute pics. Im a perv, so lewd pic can motivate me
+      as well
     </li>
     <li>
-        <strong>Sharing!</strong><br>
-        Perhaps with enough sharing, some oil baron might see my card lol
+      <strong>Sharing!</strong><br />
+      Perhaps with enough sharing, some oil baron might see my card lol
     </li>
-</ol>
+  </ol>
 
-    
-    
-    <h2>Financial Support</h2>
-    <div class="card-grid">
-      <NeoCard variant="default">
-          <h3 slot="header" id="commission">Card Commission</h3>
-          <p>You tell me your character concept, I turn it to full character with scenario, first message and message examples! <br><br>
-              Price start from $10 for character with message example and 3 intro. <br><br>Contact me at <a href="https://x.com/kurohomeless">Twitter</a>/<a href="https://www.reddit.com/user/kurohomelessqueen/">Reddit</a>/ <a href="mailto:bruising-bash-elm@duck.com">Email</a>.</p>
-        </NeoCard>
-        
-        <NeoCard variant="primary">
-          <h3 slot="header">Support me on Ko-fi</h3>
-          <p>You can support me on ko-fi for some of these benefits:
-          <ul>
-              <li>Additional bonus character art</li>
-              <li>Priority right which one to create first in my character backlog</li>
-              <li>Credit in my work</li>
-          </ul>
-          <br>
-          Disclaimer: The Ko-fi page not finished yet....sorry..uh can we just pretend you are early investor?</p>
-          <LinkButton fullWidth variant="danger" slot="footer" href={linkKofi}>        <LogoKofi alt="Kofi Logo, a cup with heart" height="auto" width="26px" /> ko-fi</LinkButton>
-        </NeoCard>
-        
-        <NeoCard variant="secondary">
-          <h3 slot="header" id="crypto">Crypto</h3>
-          <p>for anon investors.
-          <ul>
-              <li>XMR: <code class="wallet-adr">{walletXMR}</code></li>
-              <li>LTC: <code class="wallet-adr">{walletLTC}</code></li>
-              <li>SOL: <code class="wallet-adr">{walletSOL}</code></li>
-              <li>BTC: <code class="wallet-adr">{walletBTC}</code></li>
-          </ul></p>
-        </NeoCard>
-    </div>
-    </div>
+  <h2>Financial Support</h2>
+  <div class="card-grid">
+    <NeoCard variant="default">
+      <h3 slot="header" id="commission">Card Commission</h3>
+      <p>
+        You tell me your character concept, I turn it to full character with scenario, first message
+        and message examples! <br /><br />
+        Price start from $10 for character with message example and 3 intro. <br /><br />Contact me
+        at <a href="https://x.com/kurohomeless">Twitter</a>/<a
+          href="https://www.reddit.com/user/kurohomelessqueen/">Reddit</a
+        >/ <a href="mailto:bruising-bash-elm@duck.com">Email</a>.
+      </p>
+    </NeoCard>
+
+    <NeoCard variant="primary">
+      <h3 slot="header">Support me on Ko-fi</h3>
+      <p>
+        You can support me on ko-fi for some of these benefits:
+        <ul>
+          <li>Additional bonus character art</li>
+          <li>Priority right which one to create first in my character backlog</li>
+          <li>Credit in my work</li>
+        </ul>
+        <br />
+        Disclaimer: The Ko-fi page not finished yet....sorry..uh can we just pretend you are early investor?
+      </p>
+      <LinkButton fullWidth variant="danger" slot="footer" href={linkKofi}>
+        <LogoKofi alt="Kofi Logo, a cup with heart" height="auto" width="26px" /> ko-fi</LinkButton
+      >
+    </NeoCard>
+
+    <NeoCard variant="secondary">
+      <h3 slot="header" id="crypto">Crypto</h3>
+      <p>
+        for anon investors.
+        <ul>
+          <li>XMR: <code class="wallet-adr">{walletXMR}</code></li>
+          <li>LTC: <code class="wallet-adr">{walletLTC}</code></li>
+          <li>SOL: <code class="wallet-adr">{walletSOL}</code></li>
+          <li>BTC: <code class="wallet-adr">{walletBTC}</code></li>
+        </ul>
+      </p>
+    </NeoCard>
+  </div>
 </Layout>

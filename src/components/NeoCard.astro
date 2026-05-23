@@ -1,10 +1,10 @@
 ---
 /**
  * Neo-Brutalist Card Component
- * 
+ *
  * Versatile card component for content organization.
  * Perfect for features, testimonials, pricing, and content blocks.
- * 
+ *
  * @component
  * @example
  * <Card variant="primary">
@@ -17,19 +17,19 @@
 export interface Props {
   /** Visual style variant of the card */
   variant?: 'default' | 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-  
+
   /** Size of the card */
   size?: 'small' | 'medium' | 'large';
-  
+
   /** Make card interactive (clickable) */
   clickable?: boolean;
-  
+
   /** Link URL if card should act as a link */
   href?: string;
-  
+
   /** Hover effect intensity */
   hoverEffect?: 'none' | 'subtle' | 'strong';
-  
+
   /** Additional CSS classes */
   class?: string;
 }
@@ -67,33 +67,36 @@ const Element = href ? 'a' : 'article';
     `neo-card--${finalSize}`,
     `neo-card--hover-${finalHoverEffect}`,
     { 'neo-card--clickable': isClickable },
-    className
+    className,
   ]}
 >
-  {Astro.slots.has('header') && (
-    <header class="neo-card__header">
-      <slot name="header" />
-    </header>
-  )}
-  
+  {
+    Astro.slots.has('header') && (
+      <header class="neo-card__header">
+        <slot name="header" />
+      </header>
+    )
+  }
+
   <div class="neo-card__body">
     <slot />
   </div>
-  
-  {Astro.slots.has('footer') && (
-    <footer class="neo-card__footer">
-      <slot name="footer" />
-    </footer>
-  )}
+
+  {
+    Astro.slots.has('footer') && (
+      <footer class="neo-card__footer">
+        <slot name="footer" />
+      </footer>
+    )
+  }
 </Element>
 
 <style>
-:root{
-    
-}
+  :root {
+  }
   /* Base card styles */
   .neo-card {
-     --neo-black: var(--text-1);
+    --neo-black: var(--text-1);
     --neo-white: var(--bg-1);
     --neo-primary: var(--bg-accent-2);
     --neo-secondary: var(--bg-accent-1);
@@ -101,34 +104,32 @@ const Element = href ? 'a' : 'article';
     --neo-danger: #ff0055;
     --neo-warning: #ffaa00;
     --neo-gray: var(--bg-2);
-    
+
     --neo-border-width: 4px;
     --neo-shadow-offset: 0px;
     --neo-transition-speed: 0.15s;
-    
+
     /* Layout */
     display: flex;
     flex-direction: column;
-    
+
     /* Visual */
     background: var(--neo-white);
     border: var(--neo-border-width) solid var(--neo-black);
     box-shadow: var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
-    
+
     /* Position */
     position: relative;
-    
+
     /* Reset link styles if card is a link */
     text-decoration: none;
     color: inherit;
-    
-    
   }
 
   /* Clickable cards */
   .neo-card--clickable {
     cursor: pointer;
-    transition: 
+    transition:
       transform var(--neo-transition-speed) ease,
       box-shadow var(--neo-transition-speed) ease;
   }
@@ -136,14 +137,14 @@ const Element = href ? 'a' : 'article';
   /* Hover effects */
   .neo-card--clickable.neo-card--hover-subtle:hover {
     transform: translate(2px, 2px);
-    box-shadow: 
-      calc(var(--neo-shadow-offset) - 2px) calc(var(--neo-shadow-offset) - 2px) 0 var(--neo-black);
+    box-shadow: calc(var(--neo-shadow-offset) - 2px) calc(var(--neo-shadow-offset) - 2px) 0
+      var(--neo-black);
   }
 
   .neo-card--clickable.neo-card--hover-strong:hover {
     transform: translate(4px, 4px);
-    box-shadow: 
-      calc(var(--neo-shadow-offset) - 4px) calc(var(--neo-shadow-offset) - 4px) 0 var(--neo-black);
+    box-shadow: calc(var(--neo-shadow-offset) - 4px) calc(var(--neo-shadow-offset) - 4px) 0
+      var(--neo-black);
   }
 
   .neo-card--clickable:active {
@@ -187,7 +188,7 @@ const Element = href ? 'a' : 'article';
   .neo-card__body :global(p) {
     font-family: var(--font-serif), monospace;
     line-height: 1.6;
-    margin: 0 0 1rem 0; 
+    margin: 0 0 1rem 0;
   }
 
   .neo-card__body :global(p:last-child) {

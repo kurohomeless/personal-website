@@ -1,65 +1,72 @@
 ---
 /**
  * Analytics Component
- * 
+ *
  * Handles Google Analytics and Umami tracking.
- * Keep this SEPARATE from your layout for modularity.
- * 
+ * Optimized for standard MPAs and Astro's Client Router (View Transitions).
+ *
  * @component
  */
 
 export interface Props {
   /** Google Analytics ID */
   googleAnalyticsId?: string;
-  
+
   /** Umami website ID */
   umamiWebsiteId?: string;
-  
+
   /** Umami script URL */
   umamiScriptUrl?: string;
 }
 
 const {
-  googleAnalyticsId = 'G-8695BPSRGY',
-  umamiWebsiteId = '5fd83555-966a-4759-bd41-c23c6631b870',
+  googleAnalyticsId = import.meta.env.PUBLIC_GA_ID,
+  umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_ID,
   umamiScriptUrl = 'https://cloud.umami.is/script.js',
 } = Astro.props;
 
 const isProduction = import.meta.env.PROD;
 ---
 
-{isProduction && (
-  <>
-    <!-- Google Analytics -->
-    {googleAnalyticsId && (
-      <>
-        <script 
-          async 
-          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-        ></script>
-        <script is:inline define:vars={{ googleAnalyticsId }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', googleAnalyticsId);
-        </script>
-      </>
-    )}
+<!-- External Google Analytics library (Safe inside JSX because it has no inner text/braces) -->{
+  isProduction && googleAnalyticsId && (
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
+  )
+}
 
-    <!-- Umami Analytics -->
-    {umamiWebsiteId && (
-      <script 
-        defer 
-        src={umamiScriptUrl}
-        data-website-id={umamiWebsiteId}
-      ></script>
-    )}
-  </>
-)}
+<!-- 
+  GA Inline Script: Kept completely outside JSX curly braces 
+  to prevent compiler parsing errors.
+-->
+<script is:inline define:vars={{ googleAnalyticsId, isProduction }}>
+  // Run only in production if a GA ID is supplied
+  if (isProduction && googleAnalyticsId) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
 
-<!-- Development mode indicator -->
-{!isProduction && (
-  <script is:inline>
-    console.log('📊 Analytics disabled in development mode');
-  </script>
-)}
+    // Initialize tracking on first load
+    window.gtag('js', new Date());
+    window.gtag('config', googleAnalyticsId);
+
+    // Track page transitions
+    document.addEventListener('astro:after-swap', () => {
+      window.gtag('config', googleAnalyticsId);
+    });
+  }
+</script>
+
+<!-- Umami Analytics (Safe inside JSX because it has no inner text/braces) -->
+{
+  isProduction && umamiWebsiteId && (
+    <script defer src={umamiScriptUrl} data-website-id={umamiWebsiteId} data-astro-rerun />
+  )
+}
+
+<!-- Development mode indicator (No braces inside console.log, so it is safe inside JSX) -->
+{
+  !isProduction && (
+    <script is:inline>console.log('📊 Analytics disabled in development mode');</script>
+  )
+}

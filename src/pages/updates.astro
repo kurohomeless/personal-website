@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import UpdatesFeed from '../components/UpdatesFeed.astro';
+import Layout from '../layouts/Layout.astro';
+import LogoRss from '../assets/line-md--rss.svg';
+
+const allUpdates = await getCollection('updates');
+const sorted = allUpdates.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="updates">
+  <main>
+    <div class="updates-header">
+      <h1>All Updates</h1>
+      <a
+        href="/rss.xml"
+        class="rss-link"
+        title="Subscribe via RSS"
+        aria-label="Subscribe to updates via RSS"
+      >
+        <LogoRss alt="RSS symbol" height="auto" width="14px" />
+        <span>rss</span>
+      </a>
+    </div>
+    <p class="subtitle">a running log of what's happening.</p>
+    <UpdatesFeed updates={sorted} />
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .updates-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-bottom: 0;
+  }
+
+  .rss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: var(--font-sm);
+    color: var(--text-3);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    position: relative;
+    top: -2px;
+    transition: color var(--ease);
+  }
+
+  .rss-link:hover {
+    color: var(--orange);
+    text-decoration: none;
+  }
+
+  .subtitle {
+    font-size: var(--font-xs);
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xl);
+  }
+</style>

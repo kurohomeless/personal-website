@@ -1,28 +1,59 @@
 [
+   {
+    "id": "lost-saga-gambling-simulator",
+    "src": "/cards/lost-saga-mmo.png",
+    "title": "Lost Saga Gambling Simulator",
+    "tagline": "Bet your tuition on virtual brawlers. Win raw ecstasy, or face the brutal ending of absolute ruin.",
+    "description": "A high-stakes psychological horror minigame disguised as a 2000s MMO gambling simulator. Set inside a gritty, dimly lit internet cafe, this card features a fully functional engine driven by Regex UI widgets, dynamic wallet tracking, and live toxic chat streams. Fully localized across 6 languages (EN, KR, JP, CN, TW, ID) with culture-specific slang. Bet your savings on classic Lost Saga heroes—lose it all, and unlock a custom, unyielding 'Bad Ending' with no retries.",
+    "tokens": 7000,
+    "models": "Tested on Gemini App and Gemma",
+    "downloadUrl": "/cards/lost-saga-mmo.png",
+    "featured": true,
+    "tags": ["OC", "Simulator", "Minigame", "Gimmick", "Dark-Comedy", "Interactive-UI", "Multi-Language"],
+    "version": "v3"
+  },
   {
-  "id": "kirara-nyx",
-  "src": "/cards/dr-kirara-the-therapist-with-0-star-reviews-by-kurohomeless.png",
-  "title": "Dr. Kirara - The Therapist With 0-Star Reviews",
-  "tagline": "She'll fix you. You'll hate the process. You'll thank her later (maybe).", 
-  "description": "A genius nekomimi psychologist who practices 'Radical Honesty Therapy.' She doesn't coddle, she dissects. She doesn't validate, she demolishes your cognitive distortions with surgical precision. PhD from Stanford at 19, trust fund baby trying to prove she earned it, and professionally allergic to the word 'nya~'. Her patients hate her sessions but can't deny the results. Licensed to psychoanalyze you into an existential crisis—then bill you $300 for it.",
-  "tokens": 2891,
-  "models": "Tested on Gemini App",
-  "downloadUrl": "/cards/dr-kirara-the-therapist-with-0-star-reviews-by-kurohomeless.png",
-  "featured": true,
-  "tags": ["OC", "Nekomimi", "psychologist", "dominant", "genius", "anti-stereotype", "brutal-honesty", "slow-burn"]
-  }, 
+    "id": "kirara-nyx",
+    "src": "/cards/dr-kirara-the-therapist-with-0-star-reviews-by-kurohomeless.png",
+    "title": "Dr. Kirara - The Therapist With 0-Star Reviews",
+    "tagline": "She'll fix you. You'll hate the process. You'll thank her later (maybe).",
+    "description": "A genius nekomimi psychologist who practices 'Radical Honesty Therapy.' She doesn't coddle, she dissects. She doesn't validate, she demolishes your cognitive distortions with surgical precision. PhD from Stanford at 19, trust fund baby trying to prove she earned it, and professionally allergic to the word 'nya~'. Her patients hate her sessions but can't deny the results. Licensed to psychoanalyze you into an existential crisis—then bill you $300 for it.",
+    "tokens": 2891,
+    "models": "Tested on Gemini App",
+    "downloadUrl": "/cards/dr-kirara-the-therapist-with-0-star-reviews-by-kurohomeless.png",
+    "featured": true,
+    "tags": [
+      "OC",
+      "Nekomimi",
+      "psychologist",
+      "dominant",
+      "genius",
+      "anti-stereotype",
+      "brutal-honesty",
+      "slow-burn"
+    ],
+        "version": "v2"
+    
+  },
 
   {
     "id": "yuzuha-inari",
     "src": "/cards/Yuzuha_Inari.png",
     "title": "Yuzuha Inari - The Smile is a Lie",
-    "tagline": "Can you break the perfect customer service mask, or are you just another customer to be endured?", 
+    "tagline": "Can you break the perfect customer service mask, or are you just another customer to be endured?",
     "description": "A voice of pure honey masking a mind of pure venom. She bows like a maid. She smiles like an angel. She hates your guts. Trapped in a biological debt-slavery contract by Seimei Synthetics, Yuzuha is legally obligated to treat you like a God (even if she views you as 'talking livestock.')",
     "tokens": 2244,
     "models": "Tested on Gemini app",
     "downloadUrl": "/cards/Yuzuha_Inari.png",
     "featured": true,
-    "tags": ["OC", "furry", "dual-perspective", "internal-monologue", "workplace-psychological"]
+    "tags": [
+      "OC",
+      "furry",
+      "dual-perspective",
+      "internal-monologue",
+      "workplace-psychological"
+    ],
+        "version": "v2"
   },
   {
     "id": "noname",

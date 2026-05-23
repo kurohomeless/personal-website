@@ -5,17 +5,16 @@ interface Props {
   author?: string;
 }
 
-const { 
-  author = "kurohomeless"
-} = Astro.props;
+const { author = 'kurohomeless' } = Astro.props;
 
 const currentYear = new Date().getFullYear();
 ---
+
 <footer>
-    <div class="copyright-section">
-      <p>{author} &copy; {currentYear}</p>
-      <p class="sub-text">Built on phone with Astro, AI and spite.</p>
-    </div>
+  <div class="copyright-section">
+    <p>{author} &copy; {currentYear}</p>
+    <p class="sub-text">Built on phone with Astro, AI and spite.</p>
+  </div>
 </footer>
 
 <style>

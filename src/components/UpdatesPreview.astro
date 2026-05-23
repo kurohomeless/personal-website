@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import UpdatesFeed from './UpdatesFeed.astro';
+import LinkButton from '../components/LinkButton.astro';
+import ButtonGroup from '../components/ButtonGroup.astro';
+
+const allUpdates = await getCollection('updates');
+
+// Safe, non-mutating sort using the spread operator
+const latest = [...allUpdates]
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 10);
+---
+
+<section aria-labelledby="updates-heading">
+  <div class="updates-header">
+    <!-- ID added to match aria-labelledby for better accessibility -->
+    <h2 id="updates-heading">updates</h2>
+    <a
+      href="/rss.xml"
+      class="rss-link"
+      title="Subscribe via RSS"
+      aria-label="Subscribe to updates via RSS"
+    >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <circle cx="6.18" cy="17.82" r="2.18"></circle>
+        <path
+          d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"
+        ></path>
+      </svg>
+      <span>rss</span>
+    </a>
+  </div>
+  
+  <UpdatesFeed updates={latest} />
+  
+  <ButtonGroup align="center">
+    <!-- Removed empty size="" prop -->
+    <LinkButton href="/updates" variant="secondary"> → ALL UPDATES </LinkButton>
+  </ButtonGroup>
+</section>
+
+<style>
+  /* Global boundary protection for this section */
+  section {
+    overflow-wrap: break-word; /* Forces long text or links to wrap safely inside container boundaries */
+    word-break: break-word;
+  }
+
+  .updates-header {
+    display: flex;
+    align-items: baseline; 
+    flex-wrap: wrap; /* Prevents overflow/squishing on narrow mobile screens */
+    gap: var(--space-sm);
+    view-transition-name: updates-preview-header;
+  }
+
+  /* h2 already has border-left + uppercase from global.css — don't fight it */
+
+  .rss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: var(--font-xs);
+    color: var(--text-3); 
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color var(--ease);
+  }
+
+  .rss-link:hover {
+    color: var(--orange);
+    text-decoration: none;
+  }
+
+
+</style>

@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+interface Props {
+  updates: CollectionEntry<'updates'>[];
+}
+
+const { updates } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+---
+
+<div class="info-box">
+  {updates.length === 0 && <p class="empty">no updates yet.</p>}
+  {
+    await Promise.all(
+      updates.map(async (update) => {
+        const { Content } = await render(update);
+        return (
+          <div class="update-item">
+            <time class="update-date" datetime={update.data.date.toISOString()}>
+              {formatDate(update.data.date)}
+            </time>
+            {/* Added .prose class wrap here */}
+            <div class="update-content prose">
+              <Content />
+            </div>
+          </div>
+        );
+      }),
+    )
+  }
+</div>
+
+<style>
+  .info-box {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .update-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-muted);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .update-item:last-child {
+    border-bottom: none;
+  }
+  
+  .update-date {
+    display: block;
+    font-size: var(--font-xs);
+    margin-bottom: 4px;
+    font-family: var(--font-mono);
+  }
+  
+  .empty {
+    font-size: var(--font-xs);
+    opacity: 0.5;
+    font-family: var(--font-mono);
+  }
+
+  /* 
+    ========================================================
+    CLEAN PROSE ENCAPSULATION
+    ========================================================
+  */
+
+  /* 1. Force any text, links, or inline elements inside .prose to wrap safely */
+  .prose :global(*) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* 2. Keeps preformatted code blocks and tables scrollable instead of wrapping */
+  .prose :global(pre),
+  .prose :global(table) {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre; /* Keeps code text format readable but scrollable */
+  }
+</style>

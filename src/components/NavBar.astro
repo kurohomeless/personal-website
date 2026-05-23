@@ -1,12 +1,10 @@
 ---
-import { useEffect } from "astro/jsx-runtime";
+import { useEffect } from 'astro/jsx-runtime';
 ---
 
 <header class="nav-header">
   <div class="logo">KODANSHA</div>
-  <button id="menu-button" aria-expanded="false" aria-controls="nav-menu">
-    MENU
-  </button>
+  <button id="menu-button" aria-expanded="false" aria-controls="nav-menu"> MENU </button>
   <nav id="nav-menu" hidden>
     <ul>
       <li><a href="#">Library</a></li>
@@ -19,56 +17,56 @@ import { useEffect } from "astro/jsx-runtime";
 </header>
 
 <style scoped>
-.nav-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
+  .nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
 
-.logo {
-  font-weight: bold;
-}
+  .logo {
+    font-weight: bold;
+  }
 
-#menu-button {
-  cursor: pointer;
-  font-weight: bold;
-}
+  #menu-button {
+    cursor: pointer;
+    font-weight: bold;
+  }
 
-#nav-menu {
-  position: absolute;
-  top: 3rem;
-  right: 1rem;
-  background: white;
-  border: 1px solid #ccc;
-  padding: 1em;
-}
+  #nav-menu {
+    position: absolute;
+    top: 3rem;
+    right: 1rem;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 1em;
+  }
 
-#nav-menu[hidden] {
-  display: none;
-}
+  #nav-menu[hidden] {
+    display: none;
+  }
 </style>
 
 <script>
-  const menuButton = document.getElementById("menu-button");
-  const navMenu = document.getElementById("nav-menu");
+  const menuButton = document.getElementById('menu-button');
+  const navMenu = document.getElementById('nav-menu');
 
-  menuButton.addEventListener("click", () => {
-    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-    menuButton.setAttribute("aria-expanded", String(!isOpen));
+  menuButton.addEventListener('click', () => {
+    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', String(!isOpen));
     navMenu.hidden = isOpen;
   });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
-      menuButton.setAttribute("aria-expanded", "false");
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
+      menuButton.setAttribute('aria-expanded', 'false');
       navMenu.hidden = true;
     }
   });
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener('click', (e) => {
     if (!navMenu.contains(e.target) && e.target !== menuButton) {
-      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute('aria-expanded', 'false');
       navMenu.hidden = true;
     }
   });

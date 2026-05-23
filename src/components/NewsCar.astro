@@ -16,20 +16,22 @@ const { title, date, time, type = 'news' } = Astro.props;
     <h2>NEWS</h2>
     <span class="ornament">❋</span>
   </div>
-  
+
   <div class="news-content">
     <div class="news-item">
       <h3>{title}</h3>
-      {(date || time) && (
-        <p class="news-meta">
-          【ニュース】{date} {time}
-        </p>
-      )}
+      {
+        (date || time) && (
+          <p class="news-meta">
+            【ニュース】{date} {time}
+          </p>
+        )
+      }
     </div>
   </div>
-  
+
   <button class="view-more">もっと見る</button>
-  
+
   <div class="social-section">
     <p class="twitter-link">Tweets by overlord_ch</p>
   </div>
@@ -55,7 +57,7 @@ const { title, date, time, type = 'news' } = Astro.props;
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
       repeating-linear-gradient(
         90deg,
         transparent,

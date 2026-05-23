@@ -1,17 +1,17 @@
 ---
 /**
  * Neo-Brutalist Accordion Component (PROPER IMPLEMENTATION)
- * 
+ *
  * Fully accessible accordion using native <details> and <summary> elements.
  * Supports exclusive behavior (only one open) and proper semantic grouping.
- * 
+ *
  * KEY FEATURES:
  * - Uses native HTML (no ARIA needed)
  * - Proper semantic grouping with heading
  * - Exclusive accordion with name attribute
  * - Keyboard accessible by default
  * - Screen reader friendly
- * 
+ *
  * @component
  * @example
  * <Accordion title="FAQ">
@@ -23,16 +23,16 @@
 export interface Props {
   /** Title for the accordion group */
   title?: string;
-  
+
   /** Heading level for the title (h2, h3, etc.) */
   headingLevel?: 2 | 3 | 4 | 5 | 6;
-  
+
   /** Unique name for exclusive accordion behavior (only one open at a time) */
   name?: string;
-  
+
   /** Allow multiple items to be open (disables exclusive behavior) */
   allowMultiple?: boolean;
-  
+
   /** Additional CSS classes */
   class?: string;
 }
@@ -49,19 +49,18 @@ const HeadingTag = `h${headingLevel}` as const;
 ---
 
 <!-- Proper semantic grouping -->
-<section 
-  class:list={[
-    'neo-accordion',
-    className
-  ]}
+<section
+  class:list={['neo-accordion', className]}
   aria-labelledby={title ? 'accordion-title' : undefined}
 >
-  {title && (
-    <HeadingTag id="accordion-title" class="neo-accordion__title">
-      {title}
-    </HeadingTag>
-  )}
-  
+  {
+    title && (
+      <HeadingTag id="accordion-title" class="neo-accordion__title">
+        {title}
+      </HeadingTag>
+    )
+  }
+
   <div class="neo-accordion__items">
     <slot />
   </div>
@@ -76,7 +75,7 @@ const HeadingTag = `h${headingLevel}` as const;
     --neo-white: #ffffff;
     --neo-gray: #f5f5f5;
     --neo-border-width: 4px;
-    
+
     margin: 2rem 0;
   }
 

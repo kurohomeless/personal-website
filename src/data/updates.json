@@ -1,20 +1,26 @@
 [
-  { 
-      "date": "Jan 26, 2025", 
-      "content": "Need to pay internet bill before Jan 27, No money. Dunno what to do. Panik. Decided to share ai characters card. Site launched. Few hours until Jan 27. Clock is ticking." },
-  { 
-      "date": "Jan 27, 2025", 
-      "content": "Quest failed because my dumbass didn't realize paypal need 4 business days to send money. Thanks to Coffee Fox for becoming my first investor" },
-  { 
-      "date": "Jan 28, 2025", 
-      "content": "Editing Yuzuha a bit" },
-  { 
-      "date": "Jan 29, 2025", 
-      "content": "update the website with navbar and learn more webdev" }, 
-  { 
-      "date": "Feb 9, 2025", 
-      "content": "I've been sick since Feb, brain not braining to create new characters, can't take a leave or I will get 10% salary cut for each day I'm not work, I just use my free time to read Astro docs and learn about SEO. Release Dr. Kirara. Not satisfied. Lacking oomph" }, 
-   { 
-      "date": "Feb 18, 2025", 
-      "content": "the flu is gone, cough almost gone, it's only slight dizziness and fever. Revamp my website. Dark mode is hard." }
+  {
+    "date": "Jan 26, 2025",
+    "content": "Need to pay internet bill before Jan 27, No money. Dunno what to do. Panik. Decided to share ai characters card. Site launched. Few hours until Jan 27. Clock is ticking."
+  },
+  {
+    "date": "Jan 27, 2025",
+    "content": "Quest failed because my dumbass didn't realize paypal need 4 business days to send money. Thanks to Coffee Fox for becoming my first investor"
+  },
+  {
+    "date": "Jan 28, 2025",
+    "content": "Editing Yuzuha a bit"
+  },
+  {
+    "date": "Jan 29, 2025",
+    "content": "update the website with navbar and learn more webdev"
+  },
+  {
+    "date": "Feb 9, 2025",
+    "content": "I've been sick since Feb, brain not braining to create new characters, can't take a leave or I will get 10% salary cut for each day I'm not work, I just use my free time to read Astro docs and learn about SEO. Release Dr. Kirara. Not satisfied. Lacking oomph"
+  },
+  {
+    "date": "Feb 18, 2025",
+    "content": "the flu is gone, cough almost gone, it's only slight dizziness and fever. Revamp my website. Dark mode is hard."
+  }
 ]

@@ -6,51 +6,51 @@ import cardsData from '../data/cards.json';
 import { YouTube } from '@astro-community/astro-embed-youtube';
 ---
 
-<Layout 
+<Layout
   title="all character cards - free downloads"
   description="Browse all free AI character cards. Lewd, degenerate, and broken personalities. Download for Claude, GPT, Gemini. Yuzuha Inari - The Smile is a Lie"
 >
-    
-    <h1>All Character Cards</h1>
+  <h1>All Character Cards</h1>
 
-    <div class="info-box">
-        <p style="margin-bottom: 12px;">
-            <strong>How to use these:</strong>
-        </p>
-        <ol style="margin-left: 24px; color: var(--text-secondary); font-size: var(--font-size-sm);">
-            <li>Download the PNG file</li>
-            <li>Import into SillyTavern, RisuAI, or your AI chat client</li>
-        </ol>
-        <p style="margin-top: 12px; color: var(--text-tertiary); font-size: var(--font-size-sm);">
-            Like them and want to support Kuro? <a href="https://ko-fi.com/homelessqueen">become investor.</a>. Want something specific? <a href="/support/#commission">Commission a custom card</a> 
-        </p>
-    </div>
-    
-    <h2> cards ({cardsData.length} total)</h2>
-    
-    <div class="cards">
-        {cardsData.map(card => <Card card={card} />)}
-    </div>
-    
-      <div class="info-box">
-        <p style="font-weight: 600; margin-bottom: 12px;">Character Backlog:</p>
-        <ul>
-            <li>Bully PS2 main character </li>
-            <li>Catgirl but not uwu nya.</li>
-            <li>scenario card: it's your days off, fuck you</li>
-            <li>genderbend some of my characters to bishie</li>
-            <li>president simulator but no plot armor</li>
-            <li>interview or podcast scenario with absurd questions</li>
-            <li>femboy</li>
-            <li>Fate  Gilgamesh as MHA student plus mommy issue</li>
-            <li>president simulator again, kinda, more like you suggest your options and ai will roast you</li>
-        </ul>
-    </div>
-    
-  <h2>Trailer for my future character. </h2>
-  
+  <div class="info-box">
+    <p style="margin-bottom: 12px;">
+      <strong>How to use these:</strong>
+    </p>
+    <ol style="margin-left: 24px; color: var(--text-secondary); font-size: var(--font-size-sm);">
+      <li>Download the PNG file</li>
+      <li>Import into SillyTavern, RisuAI, or your AI chat client</li>
+    </ol>
+    <p style="margin-top: 12px; color: var(--text-tertiary); font-size: var(--font-size-sm);">
+      Like them and want to support Kuro? <a href="https://ko-fi.com/homelessqueen"
+        >become investor.</a
+      >. Want something specific? <a href="/support/#commission">Commission a custom card</a>
+    </p>
+  </div>
+
+  <h2>cards ({cardsData.length} total)</h2>
+
+  <div class="cards">
+    {cardsData.map((card) => <Card card={card} />)}
+  </div>
+
+  <div class="info-box">
+    <p style="font-weight: 600; margin-bottom: 12px;">Character Backlog:</p>
+    <ul>
+      <li>Bully PS2 main character</li>
+      <li>Catgirl but not uwu nya.</li>
+      <li>scenario card: it's your days off, fuck you</li>
+      <li>genderbend some of my characters to bishie</li>
+      <li>president simulator but no plot armor</li>
+      <li>interview or podcast scenario with absurd questions</li>
+      <li>femboy</li>
+      <li>Fate Gilgamesh as MHA student plus mommy issue</li>
+      <li>
+        president simulator again, kinda, more like you suggest your options and ai will roast you
+      </li>
+    </ul>
+  </div>
+
+  <h2>Trailer for my future character.</h2>
+
   <YouTube id="KZNEmcPybz0" />
-
 </Layout>
-
-

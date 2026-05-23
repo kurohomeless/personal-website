@@ -1,40 +1,38 @@
 ---
 /**
  * Neo-Brutalist Link Button Component
- * 
+ *
  * A link styled as a button, maintaining semantic HTML while providing button aesthetics.
  * Use for navigation actions that should look like buttons.
- * 
+ *
  * @component
  * @example
  * <LinkButton href="/about">About Us</LinkButton>
  * <LinkButton href="https://example.com" target="_blank">External Link</LinkButton>
  */
- 
- 
 
 export interface Props {
   /** URL to navigate to (required) */
   href: string;
-  
+
   /** Visual style variant of the button */
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-  
+
   /** Size of the button */
   size?: 'small' | 'medium' | 'large';
-  
+
   /** Full width button */
   fullWidth?: boolean;
-  
+
   /** Link target attribute */
   target?: '_self' | '_blank' | '_parent' | '_top';
-  
+
   /** Relationship of the linked document */
   rel?: string;
-  
+
   /** ARIA label for accessibility */
   ariaLabel?: string;
-  
+
   /** Additional CSS classes */
   class?: string;
 }
@@ -77,7 +75,7 @@ const finalRel = rel || (isExternal ? 'noopener noreferrer' : undefined);
     `neo-link-button--${finalVariant}`,
     `neo-link-button--${finalSize}`,
     { 'neo-link-button--full': fullWidth },
-    className
+    className,
   ]}
 >
   <slot />
@@ -93,53 +91,52 @@ const finalRel = rel || (isExternal ? 'noopener noreferrer' : undefined);
     --neo-success: #00ff88;
     --neo-danger: var(--accent-2);
     --neo-warning: var(--orange);
-    
+
     --neo-border-width: 4px;
     --neo-shadow-offset: 6px;
     --neo-transition-speed: 0.15s;
-    
+
     --neo-font-small: 0.875rem;
     --neo-font-medium: 1rem;
     --neo-font-large: 1.25rem;
-    
+
     --neo-padding-small: 0.5rem 1rem;
     --neo-padding-medium: 0.75rem 1.5rem;
     --neo-padding-large: 1rem 2rem;
-    
+
     /* Typography */
     font-family: 'Literata', 'Courier New', monospace;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-size: var(--neo-font-medium);
-    
+
     /* Layout */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     padding: var(--neo-padding-medium);
-    
+
     /* Visual */
     background: var(--neo-white);
     color: var(--neo-black);
     border: var(--neo-border-width) solid var(--neo-black);
-    box-shadow: 
-      var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
-    
+    box-shadow: var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
+
     /* Remove default link styling */
     text-decoration: none;
-    
+
     /* Interaction */
     cursor: pointer;
-    transition: 
+    transition:
       transform var(--neo-transition-speed) ease,
       box-shadow var(--neo-transition-speed) ease;
-    
+
     /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
-    
+
     /* Ensure proper positioning */
     position: relative;
   }
@@ -147,8 +144,8 @@ const finalRel = rel || (isExternal ? 'noopener noreferrer' : undefined);
   /* Hover state */
   .neo-link-button:hover {
     transform: translate(3px, 3px);
-    box-shadow: 
-      calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0 var(--neo-black);
+    box-shadow: calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0
+      var(--neo-black);
   }
 
   /* Active/pressed state */

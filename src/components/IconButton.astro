@@ -1,10 +1,10 @@
 ---
 /**
  * Neo-Brutalist Icon Button Component
- * 
+ *
  * Square button designed for icons with consistent aspect ratio.
  * Follows neo-brutalism design with thick borders and offset shadows.
- * 
+ *
  * @component
  * @example
  * <IconButton ariaLabel="Close dialog">
@@ -15,22 +15,22 @@
 export interface Props {
   /** Visual style variant of the button */
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning';
-  
+
   /** Size of the button */
   size?: 'small' | 'medium' | 'large';
-  
+
   /** Disabled state */
   disabled?: boolean;
-  
+
   /** Button type attribute */
   type?: 'button' | 'submit' | 'reset';
-  
+
   /** REQUIRED: ARIA label for accessibility (critical for icon-only buttons) */
   ariaLabel: string;
-  
+
   /** Additional CSS classes */
   class?: string;
-  
+
   /** Click handler (client-side only) */
   onClick?: string;
 }
@@ -67,7 +67,7 @@ const finalSize = validSizes.includes(size) ? size : 'medium';
     `neo-icon-button--${finalVariant}`,
     `neo-icon-button--${finalSize}`,
     { 'neo-icon-button--disabled': disabled },
-    className
+    className,
   ]}
   onclick={onClick}
 >
@@ -84,11 +84,11 @@ const finalSize = validSizes.includes(size) ? size : 'medium';
     --neo-success: #00ff88;
     --neo-danger: #ff0055;
     --neo-warning: #ffaa00;
-    
+
     --neo-border-width: 4px;
     --neo-shadow-offset: 6px;
     --neo-transition-speed: 0.15s;
-    
+
     --neo-icon-small: 2rem;
     --neo-icon-medium: 2.75rem;
     --neo-icon-large: 3.5rem;
@@ -103,27 +103,26 @@ const finalSize = validSizes.includes(size) ? size : 'medium';
     width: var(--neo-icon-medium);
     height: var(--neo-icon-medium);
     padding: 0;
-    
+
     /* Visual */
     background: var(--neo-white);
     color: var(--neo-black);
     border: var(--neo-border-width) solid var(--neo-black);
-    box-shadow: 
-      var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
-    
+    box-shadow: var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--neo-black);
+
     /* Interaction */
     cursor: pointer;
-    transition: 
+    transition:
       transform var(--neo-transition-speed) ease,
       box-shadow var(--neo-transition-speed) ease;
-    
+
     /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
-    
+
     /* Ensure proper positioning */
     position: relative;
-    
+
     /* Reset unwanted styles */
     appearance: none;
     -webkit-appearance: none;
@@ -140,8 +139,8 @@ const finalSize = validSizes.includes(size) ? size : 'medium';
   /* Hover state */
   .neo-icon-button:hover:not(.neo-icon-button--disabled) {
     transform: translate(3px, 3px);
-    box-shadow: 
-      calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0 var(--neo-black);
+    box-shadow: calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0
+      var(--neo-black);
   }
 
   /* Active/pressed state */

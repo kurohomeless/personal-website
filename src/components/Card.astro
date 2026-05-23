@@ -6,159 +6,156 @@ const { card } = Astro.props;
 ---
 
 <article class="card">
-    <div class="card-img">
-    <img src={card.src} alt=`${card.id} preview`>
+  <div class="card-img">
+    <img src={card.src} alt=`${card.id} preview` />
+  </div>
+
+  <div class="card-body">
+    <h3 class="card-title">{card.title}</h3>
+    <p class="card-tagline"><em>{card.tagline}</em></p>
+    <p class="card-desc">{card.description}</p>
+    <div class="card-tags">
+      {card.tags.map((tag) => <span class="tag">{tag}</span>)}
     </div>
-    
-    <div class="card-body">
-        <h3 class="card-title">{card.title}</h3>
-        <p class="card-tagline"><em>{card.tagline}</em></p>
-        <p class="card-desc">{card.description}</p>
-        <div class="card-tags">
-            {card.tags.map(tag => <span class="tag">{tag}</span>)}
-        </div>
-        <div class="card-meta">
-            {card.tokens} tokens | {card.models} | v2 format
-        </div>
-        <div class="button-group">
-        <a href={card.downloadUrl} class="btn" download>↓ DOWNLOAD FREE</a>
-        </div>
-        
-        
+    <div class="card-meta">
+      {card.tokens} tokens | {card.models} | {card.version} format
     </div>
+    <div class="button-group">
+      <a href={card.downloadUrl} class="btn" download>↓ DOWNLOAD FREE</a>
+    </div>
+  </div>
 </article>
 
 <style>
-    /* Cards *//* Cards */
-.card {
-  background: var(--bg-2);
-  border: var(--neo-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: all var(--ease);
-}
+  /* Cards */ /* Cards */
+  .card {
+    background: var(--bg-2);
+    border: var(--neo-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--ease);
+  }
 
-.card-img {
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  background: linear-gradient(135deg, var(--bg-3), var(--bg-2));
-  display: grid;
-  place-items: center;
-  color: var(--text-3);
-  font-size: var(--font-sm);
-  border-bottom: var(--border-size) solid var(--text-1);
-  font-family: var(--font-mono);
-  overflow: hidden; /* prevents overflow of child content */
-}
+  .card-img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background: linear-gradient(135deg, var(--bg-3), var(--bg-2));
+    display: grid;
+    place-items: center;
+    color: var(--text-3);
+    font-size: var(--font-sm);
+    border-bottom: var(--border-size) solid var(--text-1);
+    font-family: var(--font-mono);
+    overflow: hidden; /* prevents overflow of child content */
+  }
 
-.card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* ensures the image fills the container without distortion */
-  display: block;    /* removes extra inline spacing */
-}
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ensures the image fills the container without distortion */
+    display: block; /* removes extra inline spacing */
+  }
 
+  .card-body {
+    padding: var(--space-md);
+  }
 
-.card-body {
-  padding: var(--space-md);
-}
+  .card-title {
+    font-size: var(--font-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
 
-.card-title {
-  font-size: var(--font-lg);
-  font-weight: 700;
-  margin-bottom: var(--space-xs);
-}
+  .card-desc {
+    color: var(--text-2);
+    font-size: var(--font-sm);
+    margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+  .card-meta {
+    color: var(--text-3);
+    font-size: var(--font-xs);
+    margin-bottom: var(--space-md);
+    font-family: var(--font-mono);
+  }
 
-.card-desc {
-  color: var(--text-2);
-  font-size: var(--font-sm);
-  margin-bottom: var(--space-md);
-  line-height: 1.5;
-}
-.card-meta {
-  color: var(--text-3);
-  font-size: var(--font-xs);
-  margin-bottom: var(--space-md);
-  font-family: var(--font-mono);
-}
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
 
-.card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-md);
-}
+  .tag {
+    background: var(--bg-accent-1);
+    color: var(--accent-1);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    font-size: var(--font-xs);
+    font-weight: 500;
+  }
 
-.tag {
-  background: var(--bg-accent-1);
-  color: var(--accent-1);
-  padding: 0.125rem 0.5rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--border); 
-  font-size: var(--font-xs);
-  font-weight: 500;
-}
+  .btn {
+    display: inline-block;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--accent-1);
+    color: var(--bg-1);
+    text-align: center;
+    text-decoration: none;
+    border: var(--neo-border);
+    border-radius: var(--radius);
+    font: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 1.1rem;
+    font-weight: 700;
 
-.btn {
-  display: inline-block;
-  padding: var(--space-md) var(--space-lg);
-  background: var(--accent-1);
-  color: var(--bg-1);
-  text-align: center;
-  text-decoration: none;
-  border: var(--neo-border);
-  border-radius: var(--radius);
-  font: inherit;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 1.1rem;
-  font-weight: 700;
-  
-  cursor: pointer;
-  transition: 
-     transform 0.15s ease,
-     box-shadow 0.15s ease;
-    
-  box-shadow: var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--text-1);
-  
-  
-  
-}
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
 
-.btn:hover {
+    box-shadow: var(--neo-shadow-offset) var(--neo-shadow-offset) 0 var(--text-1);
+  }
+
+  .btn:hover {
     transform: translate(3px, 3px);
-    box-shadow: 
-      calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0 var(--text-1);
+    box-shadow: calc(var(--neo-shadow-offset) - 3px) calc(var(--neo-shadow-offset) - 3px) 0
+      var(--text-1);
   }
 
   /* Active/pressed state */
-.btn:active {
+  .btn:active {
     transform: translate(var(--neo-shadow-offset), var(--neo-shadow-offset));
     box-shadow: 0 0 0 yellow;
   }
 
+  .btn-primary {
+    background: var(--primary);
+  }
+  .btn-danger {
+    background: var(--danger);
+  }
 
-.btn-primary { background: var(--primary); }
-.btn-danger { background: var(--danger); }
+  .button-group {
+    display: flex; /* Arrange buttons side by side */
+    gap: 16px; /* Space between buttons */
+    width: 100%;
+    align-items: center;
+    margin: var(--space-xs) 0;
+  }
 
-.button-group {
-  display: flex;           /* Arrange buttons side by side */
-  gap: 16px;               /* Space between buttons */
-  width: 100%;
-  align-items: center;
-  margin: var(--space-xs) 0;
-}
+  .button-group .btn {
+    padding: 10px 20px; /* Default button padding */
+    font-size: 16px;
+    flex: 1 1 auto;
+    white-space: nowrap;
+  }
 
-.button-group .btn {
-  padding: 10px 20px;      /* Default button padding */
-  font-size: 16px;       
-  flex: 1 1 auto;   
-  white-space: nowrap;
-}
-
-.card-tagline {
-   font-size: 0.9rem;
-   opacity: 85%;
-   margin-bottom: var(--space-md);
-}
+  .card-tagline {
+    font-size: 0.9rem;
+    opacity: 85%;
+    margin-bottom: var(--space-md);
+  }
 </style>
