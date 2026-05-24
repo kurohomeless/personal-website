@@ -8,6 +8,23 @@ interface Props {
 
 const { updates } = Astro.props;
 
+const processedUpdates = await Promise.all(
+  updates.map(async (update) => {
+    const { Content } = await render(update);
+    
+    const isValidDate = update.data.date instanceof Date && !isNaN(update.data.date.getTime());
+    const isoString = isValidDate ? update.data.date.toISOString() : new Date().toISOString();
+    const formatted = isValidDate ? formatDate(update.data.date) : 'Unknown Date';
+
+    return {
+      ...update,
+      Content,
+      isoString,
+      formatted,
+    };
+  })
+);
+
 function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', {
     month: 'short',
@@ -18,28 +35,25 @@ function formatDate(date: Date): string {
 ---
 
 <div class="info-box">
-  {updates.length === 0 && <p class="empty">no updates yet.</p>}
+  {processedUpdates.length === 0 && <p class="empty">no updates yet.</p>}
+  
   {
-    await Promise.all(
-      updates.map(async (update) => {
-        const { Content } = await render(update);
-        return (
-          <div class="update-item">
-            <time class="update-date" datetime={update.data.date.toISOString()}>
-              {formatDate(update.data.date)}
-            </time>
-            {/* Added .prose class wrap here */}
-            <div class="update-content prose">
-              <Content />
-            </div>
-          </div>
-        );
-      }),
-    )
+    processedUpdates.map(({ Content, isoString, formatted }) => (
+      <div class="update-item">
+        <time class="update-date" datetime={isoString}>
+          {formatted}
+        </time>
+        {/* Use a global utility class defined in your main global.css layout */}
+        <div class="update-content global-prose-wrapper">
+          <Content />
+        </div>
+      </div>
+    ))
   }
 </div>
 
 <style>
+  /* All styles here are now strictly scoped to this component only */
   .info-box {
     width: 100%;
     max-width: 100%;
@@ -69,25 +83,5 @@ function formatDate(date: Date): string {
     font-size: var(--font-xs);
     opacity: 0.5;
     font-family: var(--font-mono);
-  }
-
-  /* 
-    ========================================================
-    CLEAN PROSE ENCAPSULATION
-    ========================================================
-  */
-
-  /* 1. Force any text, links, or inline elements inside .prose to wrap safely */
-  .prose :global(*) {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  /* 2. Keeps preformatted code blocks and tables scrollable instead of wrapping */
-  .prose :global(pre),
-  .prose :global(table) {
-    max-width: 100%;
-    overflow-x: auto;
-    white-space: pre; /* Keeps code text format readable but scrollable */
   }
 </style>
