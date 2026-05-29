@@ -1,20 +1,20 @@
 ---
 /**
  * Analytics Component
- *
+ * 
  * Handles Google Analytics and Umami tracking.
  * Optimized for standard MPAs and Astro's Client Router (View Transitions).
- *
+ * 
  * @component
  */
 
 export interface Props {
   /** Google Analytics ID */
   googleAnalyticsId?: string;
-
+  
   /** Umami website ID */
   umamiWebsiteId?: string;
-
+  
   /** Umami script URL */
   umamiScriptUrl?: string;
 }
@@ -28,45 +28,45 @@ const {
 const isProduction = import.meta.env.PROD;
 ---
 
-<!-- External Google Analytics library (Safe inside JSX because it has no inner text/braces) -->{
-  isProduction && googleAnalyticsId && (
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
-  )
-}
+{isProduction && googleAnalyticsId && (
+  <!-- External Google Analytics Library -->
+  <script 
+    is:inline
+    async 
+    src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+  />
+  
+  <!-- GA Initialization & Lifecycle Tracking -->
+  <script 
+    is:inline
+    set:html={`
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() {
+        window.dataLayer.push(arguments);
+      };
 
-<!-- 
-  GA Inline Script: Kept completely outside JSX curly braces 
-  to prevent compiler parsing errors.
--->
-<script is:inline define:vars={{ googleAnalyticsId, isProduction }}>
-  // Run only in production if a GA ID is supplied
-  if (isProduction && googleAnalyticsId) {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      window.dataLayer.push(arguments);
-    };
+      // astro:page-load triggers on both initial load and view transitions
+      document.addEventListener('astro:page-load', () => {
+        window.gtag('js', new Date());
+        window.gtag('config', '${googleAnalyticsId}');
+      });
+    `}
+  />
+)}
 
-    // Initialize tracking on first load
-    window.gtag('js', new Date());
-    window.gtag('config', googleAnalyticsId);
+{isProduction && umamiWebsiteId && (
+  <!-- Umami Analytics (data-astro-rerun ensures tracking on View Transitions) -->
+  <script 
+    is:inline
+    defer 
+    src={umamiScriptUrl}
+    data-website-id={umamiWebsiteId}
+    data-astro-rerun
+  />
+)}
 
-    // Track page transitions
-    document.addEventListener('astro:after-swap', () => {
-      window.gtag('config', googleAnalyticsId);
-    });
-  }
-</script>
-
-<!-- Umami Analytics (Safe inside JSX because it has no inner text/braces) -->
-{
-  isProduction && umamiWebsiteId && (
-    <script defer src={umamiScriptUrl} data-website-id={umamiWebsiteId} data-astro-rerun />
-  )
-}
-
-<!-- Development mode indicator (No braces inside console.log, so it is safe inside JSX) -->
-{
-  !isProduction && (
-    <script is:inline>console.log('📊 Analytics disabled in development mode');</script>
-  )
-}
+{!isProduction && (
+  <script is:inline>
+    console.log('📊 Analytics disabled in development mode');
+  </script>
+)}
